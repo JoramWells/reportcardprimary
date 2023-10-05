@@ -22,7 +22,7 @@ function CellComponent({ title, texts, width }) {
         ))}
 
       </div>
-      <div style={{ height: '1.5rem', width: '100%' }} />
+      <div style={{ height: '.9rem', width: '100%' }} />
 
       {/* numbers */}
     </div>

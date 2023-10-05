@@ -5,7 +5,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { useSubjectApi } from '../../hooks/useSubjectApi';
 import '../../css/table.module.css';
 import { useCalcApi } from '../../hooks/useCalcApi';
@@ -19,25 +19,35 @@ import { calculateTotalMarks, findTerm } from '../../utils/calculate';
 
 // }
 
-function CustomTable() {
+function ResultsTable() {
   const { saveStudentSubjectByID, studentSubjectByID, getStudentSubjectById } = useSubjectApi();
 
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
 
   const { mergeArrays } = useCalcApi();
   const datax = mergeArrays(...studentSubjectByID);
+  const [termResults, setTermResults] = useState([]);
 
-  const [sums, setSums] = useState(0);
-
+  const searchTerms = searchParams.get('term');
+  const getTermResults = () => {
+    const userResults = studentSubjectByID.filter(
+      (user) => user.term.toLowerCase().includes(searchTerms.toLowerCase()),
+    );
+    // setTermResults(userResults);
+    return userResults;
+  };
+  const results = getTermResults();
   useEffect(() => {
     getStudentSubjectById(id);
+
+    // console.log(termResults, 'terms');
   }, []);
 
   return (
 
     <div className="container">
       <table
-        cellSpacing="0"
         style={{
           width: '100%',
           border: '1px solid black',
@@ -56,28 +66,31 @@ function CustomTable() {
             border: '1px solid black',
           }}
           >
-            <td>SUBJECT</td>
             <td>
-              BOT
-
-            </td>
-            <td>
-              MID
-
-            </td>
-            <td>
-              EOT
-
-            </td>
-            <td
-              style={{
-                fontWeight: 'bold',
-                textAlign: 'center',
+              <div style={{
+                width: '100%',
                 backgroundColor: 'whitesmoke',
               }}
-              colSpan={2}
-            >
-              AVERAGE
+              >
+                EXAM RESULTS
+
+              </div>
+              <div style={{
+                fontWeight: '500',
+              }}
+              >
+                Learning Area
+
+              </div>
+
+            </td>
+            <td colSpan={2}>
+              Monthly Tests
+
+            </td>
+
+            <td colSpan={2}>
+              End of Term
 
             </td>
 
@@ -87,7 +100,7 @@ function CustomTable() {
                 textAlign: 'center',
               }}
             >
-              SUBJECT TEACHER
+              {' '}
 
             </td>
 
@@ -102,9 +115,9 @@ function CustomTable() {
           }}
           >
             <td>{'  '}</td>
-            <td>Mrks</td>
-            <td>Mrks</td>
-            <td>Mrks</td>
+            <td>Full Marks</td>
+            <td>Marks Gained</td>
+            <td>Full Marks</td>
             <td
               style={{
                 fontWeight: 'bold',
@@ -112,18 +125,7 @@ function CustomTable() {
                 backgroundColor: 'whitesmoke',
               }}
             >
-              Mrks
-
-            </td>
-            <td
-              width={66}
-              style={{
-                fontWeight: 'bold',
-                textAlign: 'center',
-                backgroundColor: 'whitesmoke',
-              }}
-            >
-              Aggs
+              Marks Gained
 
             </td>
 
@@ -152,15 +154,19 @@ function CustomTable() {
 
               </td>
               <td>
-                {('marks-BOT' in item) && item['marks-BOT']}
+                100
 
               </td>
               <td>
-                {('marks-MID' in item) && item['marks-MID']}
+                {('marks-Monthly' in item) && item['marks-Monthly']}
 
               </td>
               <td>
                 {' '}
+                100
+
+              </td>
+              <td>
                 {('marks-EOT' in item) && item['marks-EOT']}
 
               </td>
@@ -172,24 +178,17 @@ function CustomTable() {
                 {' '}
 
               </td>
-              <td>
-                {' '}
 
-              </td>
-              <td>
-                {' '}
-              </td>
             </tr>
           ))}
 
           {/* core */}
           <tr>
             <td style={{
-              textAlign: 'end',
               fontWeight: 'bold',
             }}
             >
-              CORE
+              Total
             </td>
             <td align="center">
               {' '}
@@ -214,18 +213,13 @@ function CustomTable() {
             <td>
               {' '}
             </td>
-            <td>
-              {' '}
-            </td>
+
           </tr>
 
           {/* grand total */}
           <tr>
-            <td style={{
-              textAlign: 'center',
-            }}
-            >
-              Grand Total
+            <td>
+              Position in Class
             </td>
             <td>
               {' '}
@@ -248,9 +242,7 @@ function CustomTable() {
             <td>
               {' '}
             </td>
-            <td>
-              {' '}
-            </td>
+
           </tr>
         </tbody>
       </table>
@@ -258,4 +250,4 @@ function CustomTable() {
   );
 }
 
-export default CustomTable;
+export default ResultsTable;

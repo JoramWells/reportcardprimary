@@ -6,7 +6,6 @@ import {
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
 
 import Title from '../screens/Dashboard/Title';
 
@@ -54,16 +53,14 @@ function TableComponent({ columns, data, navigationLink }) {
               <TableCell>{row.secondName}</TableCell>
               <TableCell>{row.indexCodeName}</TableCell>
               <TableCell>{row.age}</TableCell>
+              <TableCell>{row.type}</TableCell>
+
               <TableCell>{row.className}</TableCell>
               <TableCell style={{
                 backgroundColor: 'whitesmoke',
               }}
               >
-                <Tooltip title="Generate Report">
-                  <IconButton onClick={() => { navigate(`/report1/${row.id}`); }}>
-                    <AssessmentOutlinedIcon />
-                  </IconButton>
-                </Tooltip>
+
                 <Tooltip title="Delete">
                   <IconButton
                     style={{

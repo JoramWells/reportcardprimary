@@ -30,6 +30,7 @@ function PrimaryAdd() {
     houseName,
     age,
     division,
+    type: 'Primary',
   };
 
   const handleChange = (e) => {
@@ -107,22 +108,6 @@ function PrimaryAdd() {
             </FormControl>
 
             {/* confirm password */}
-            <FormControl
-              style={{
-                margin: '1rem',
-              }}
-            >
-              <TextField
-                id="outlined-basic"
-                label="Scholar Id"
-                variant="outlined"
-                size="small"
-                style={{
-                  width: '100%',
-                }}
-                onChange={(e) => setIndexCodeName(e.target.value)}
-              />
-            </FormControl>
 
             {/* classname */}
             <FormControl

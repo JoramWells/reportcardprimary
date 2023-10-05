@@ -1,24 +1,21 @@
 /* eslint-disable no-unused-vars */
 import {
-  Button, Paper, IconButton,
+  Button, Paper,
 } from '@mui/material';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { useEffect, useState } from 'react';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useNavigate, useParams } from 'react-router-dom';
-import CustomTable from '../../components/CustomTable';
+import { useParams, useSearchParams } from 'react-router-dom';
 import Badge from '../../components/Badge';
 import Underline from '../../components/Underline';
 import Dashboard from '.';
 import Header from '../../components/Report2/Header';
 import PersonalDetails from '../../components/Report2/PersonalDetalis';
 import Practicals from '../../components/Report2/Practicals';
+import ResultsTable from '../../components/Report2/ResultsTable';
 
 function Report2() {
   const [loader, setLoader] = useState(false);
-  const [studentData, setStudentData] = useState([]);
-  const navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -53,7 +50,6 @@ function Report2() {
   };
   useEffect(() => {
     getStudentId(id);
-    console.log(results, 'resultsx');
   }, [id]);
 
   return (
@@ -68,7 +64,7 @@ function Report2() {
           flexDirection: 'row',
           justifyContent: 'center',
           height: '100vh',
-          padding: '10px',
+          // padding: '10px',
         }}
         >
 
@@ -97,64 +93,55 @@ function Report2() {
                 />
 
                 <Practicals />
+                <ResultsTable />
 
                 <div style={{
-                  // padding: '10px',
-                }}
-                >
-                  <CustomTable />
-                </div>
-
-                <div style={{
-                  marginTop: '1rem',
+                  marginTop: '.2rem',
                   display: 'flex',
                   justifyContent: 'space-evenly',
+                  alignItems: 'flex-end',
                 }}
                 >
-                  <Badge text="Class Teachers remarks" width="30%" />
-                  <input style={{
-                    width: '70%',
-                  }}
+                  <Badge text="School Requirements" width="30%" />
+                  <Underline
+                    width="70%"
                   />
                 </div>
 
                 {/* headteacher */}
                 <div style={{
-                  marginTop: '1rem',
+                  marginTop: '.5rem',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'flex-end',
                 }}
                 >
-                  <Badge text="Headteachers remarks" width="40%" />
+                  <Badge text="Teachers comments" width="40%" />
                   <Underline width="60%" />
 
                 </div>
 
-                {/* signature */}
                 <div style={{
-                  marginTop: '1rem',
+                  marginTop: '.5rem',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'flex-end',
                 }}
                 >
-                  <Badge bold text="Signature/Seal" width="15%" />
-                  <Underline width="20%" />
-                  <Badge text="Conduct" width="15%" />
-                  <Underline width="50%" />
+                  <Badge text="Headteachers comments" width="40%" />
+                  <Underline width="60%" />
 
                 </div>
 
                 {/* requirements */}
                 <div style={{
-                  marginTop: '1rem',
+                  marginTop: '.5rem',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'flex-end',
                 }}
                 >
-                  <Badge text="Requirements" width="15%" />
+                  <Badge text="Next term begins" width="15%" />
                   <Underline width="85%" />
 
                 </div>

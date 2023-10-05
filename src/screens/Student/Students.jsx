@@ -25,6 +25,10 @@ const columns = [{
 },
 {
   id: nanoid(),
+  columnName: 'Category',
+},
+{
+  id: nanoid(),
   columnName: 'Classname',
 },
 {

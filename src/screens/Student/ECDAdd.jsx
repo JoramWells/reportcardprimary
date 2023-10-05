@@ -9,6 +9,21 @@ import { StudentContext } from '../../contexts/studentContext';
 import { ClassContext } from '../../contexts/className';
 import TableComponent from '../../components/TableComponent';
 
+const terms = [
+  {
+    id: nanoid(),
+    name: 'BOT',
+  },
+  {
+    id: nanoid(),
+    name: 'MID',
+  },
+  {
+    id: nanoid(),
+    name: 'EOT',
+  },
+];
+
 function ECDAdd() {
   const [firstName, setFirstName] = useState('');
   const [secondName, setSecondName] = useState('');
@@ -30,6 +45,7 @@ function ECDAdd() {
     houseName,
     age,
     division,
+    type: 'ECD',
   };
 
   const handleChange = (e) => {
@@ -106,7 +122,6 @@ function ECDAdd() {
               />
             </FormControl>
 
-            {/* classname */}
             <FormControl
               style={{
                 margin: '1rem',
@@ -148,23 +163,6 @@ function ECDAdd() {
                   width: '100%',
                 }}
                 onChange={(e) => setAge(e.target.value)}
-              />
-            </FormControl>
-
-            <FormControl
-              style={{
-                margin: '1rem',
-              }}
-            >
-              <TextField
-                id="outlined-basic"
-                label="Term"
-                variant="outlined"
-                size="small"
-                style={{
-                  width: '100%',
-                }}
-                onChange={(e) => setDivision(e.target.value)}
               />
             </FormControl>
 

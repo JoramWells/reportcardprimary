@@ -36,6 +36,10 @@ const columns = [{
 },
 {
   id: nanoid(),
+  columnName: 'category',
+},
+{
+  id: nanoid(),
   columnName: 'Action',
 },
 ];

@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import Login from './screens/UserAuth/Login';
 import Register from './screens/UserAuth/Register';
-// import Report1 from './screens/Dashboard/Report1';
+import Report1 from './screens/Dashboard/Report1';
 import AddStudent from './screens/Student/AddStudent';
 import HomeDashboard from './screens/Dashboard/HomeDashboard';
 import AddSubject from './screens/Student/AddSubject';
@@ -38,7 +38,9 @@ function App() {
           <Route exact path="/" element={<HomeDashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/report1/:id?" element={<Report2 />} />
+          <Route path="/report1/:id?" element={<Report1 />} />
+          <Route path="/report2/:id?" element={<Report2 />} />
+
           <Route path="/add-student" element={<AddStudent />} />
           <Route path="/students" element={<Students />} />
 

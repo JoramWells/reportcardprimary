@@ -53,7 +53,6 @@ function Report1() {
   };
   useEffect(() => {
     getStudentId(id);
-    console.log(results, 'resultsx');
   }, [id]);
 
   return (

@@ -1,8 +1,11 @@
 import { Typography, Box } from '@material-ui/core';
+import { useSearchParams } from 'react-router-dom';
 import logo from '../../imgs/logo.png';
 import Underline from '../Underline';
 
 function Header() {
+  const [searchParams] = useSearchParams();
+
   return (
 
     <Box style={{
@@ -10,7 +13,6 @@ function Header() {
       justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%',
-      padding: '5px',
     }}
     >
       <div>
@@ -18,8 +20,8 @@ function Header() {
           src={logo}
           alt="company logo"
           style={{
-            width: '120px',
-            height: '120px',
+            width: '100px',
+            height: '100px',
             objectFit: 'contain',
 
           }}
@@ -31,7 +33,7 @@ function Header() {
           style={{
             textAlign: 'center',
             fontWeight: '700',
-            marginBottom: '1rem',
+            marginBottom: '.5rem',
           }}
         >
           TRINITY JUNIOUR SCHOOL KAMULI
@@ -56,9 +58,16 @@ function Header() {
         </Typography>
         <div style={{
           textAlign: 'center',
+          textTransform: 'uppercase',
         }}
         >
-          END OF TERM NURSERY REPORT
+          {searchParams.get('term') === 'BOT' && 'Begining of term'}
+          {searchParams.get('term') === 'MID' && 'Mid of term'}
+          {searchParams.get('term') === 'EOT' && 'End of term'}
+
+          {' '}
+          {' '}
+          NURSERY REPORT
         </div>
       </div>
       <div>
@@ -66,8 +75,8 @@ function Header() {
           src={logo}
           alt="company logo"
           style={{
-            width: '120px',
-            height: '120px',
+            width: '100px',
+            height: '100px',
             objectFit: 'contain',
 
           }}

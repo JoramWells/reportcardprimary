@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-useless-concat */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-unused-vars */
@@ -117,7 +118,13 @@ function StudentProfile() {
               }}
             >Average Performance per Term
             </Typography>
-            <IconButton onClick={() => { navigate(`/report1/${id}`); }}>
+
+            <IconButton onClick={() => {
+              results[0].type === 'ECD'
+                ? navigate(`/report2/${id}?term=${term}`)
+                : navigate(`/report1/${id}`);
+            }}
+            >
               <PrintIcon />
             </IconButton>
           </Box>
@@ -200,26 +207,50 @@ function StudentProfile() {
                   }}
                 >
                   {/* subject */}
-                  <FormControl
-                    style={{
-                      margin: '1rem',
-                    }}
-                  >
-                    <InputLabel id="demo-simple-select-label">Select Term</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={term}
-                      label="Term"
-                      size="small"
-                      onChange={handleTermChange}
-                    >
-                      <MenuItem value="BOT">BOT</MenuItem>
-                      <MenuItem value="MID">MID</MenuItem>
-                      <MenuItem value="EOT">EOT</MenuItem>
+                  {results[0].type === 'ECD'
+                    ? (
+                      <FormControl
+                        style={{
+                          margin: '1rem',
+                        }}
+                      >
+                        <InputLabel id="demo-simple-select-label">Select Term</InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={term}
+                          label="Term"
+                          size="small"
+                          onChange={handleTermChange}
+                        >
+                          <MenuItem value="Monthly">Monthly</MenuItem>
+                          <MenuItem value="EOT">EOT</MenuItem>
 
-                    </Select>
-                  </FormControl>
+                        </Select>
+                      </FormControl>
+                    )
+                    : (
+                      <FormControl
+                        style={{
+                          margin: '1rem',
+                        }}
+                      >
+                        <InputLabel id="demo-simple-select-label">Select Term</InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={term}
+                          label="Term"
+                          size="small"
+                          onChange={handleTermChange}
+                        >
+                          <MenuItem value="BOT">BOT</MenuItem>
+                          <MenuItem value="MID">MID</MenuItem>
+                          <MenuItem value="EOT">EOT</MenuItem>
+
+                        </Select>
+                      </FormControl>
+                    )}
 
                   {/* term */}
                   {/* subject */}
