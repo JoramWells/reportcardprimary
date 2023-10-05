@@ -13,6 +13,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { nanoid } from 'nanoid';
 import Title from './Title';
+import TableComponent from '../../components/TableComponent';
 
 const columns = [{
   id: nanoid(),
@@ -62,70 +63,6 @@ export default function Orders() {
   }, []);
 
   return (
-    <>
-      <Title>
-        Registered Students
-        {' '}
-        (
-        {studentInfo.length}
-        )
-      </Title>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            {columns.map((column) => (
-              <TableCell
-                key={column.id}
-                align="left"
-                sx={{
-                  fontWeight: 'bold',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {column.columnName}
-
-              </TableCell>
-            ))}
-
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {studentInfo.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.firstName}</TableCell>
-              <TableCell>{row.secondName}</TableCell>
-              <TableCell>{row.indexCodeName}</TableCell>
-              <TableCell>{row.age}</TableCell>
-              <TableCell>{row.className}</TableCell>
-              <TableCell style={{
-                backgroundColor: 'whitesmoke',
-              }}
-              >
-                <Tooltip title="Student Profile">
-                  <IconButton onClick={() => { navigate(`/student-profile/${row.id}`); }}>
-                    <RemoveRedEyeOutlinedIcon />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Generate Report">
-                  <IconButton onClick={() => { navigate(`/report1/${row.id}`); }}>
-                    <AssessmentOutlinedIcon />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <IconButton
-                    style={{
-                      color: '#FD6868',
-                    }}
-                    onClick={() => { deleteStudent(row.id); }}
-                  >
-                    <DeleteOutlineIcon />
-                  </IconButton>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </>
+    <TableComponent columns={columns} data={studentInfo} navigationLink="/student-profile/" />
   );
 }

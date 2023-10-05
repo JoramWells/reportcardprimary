@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import Login from './screens/UserAuth/Login';
 import Register from './screens/UserAuth/Register';
-import Report1 from './screens/Dashboard/Report1';
+// import Report1 from './screens/Dashboard/Report1';
 import AddStudent from './screens/Student/AddStudent';
 import HomeDashboard from './screens/Dashboard/HomeDashboard';
 import AddSubject from './screens/Student/AddSubject';
@@ -12,6 +12,9 @@ import AddTeacher from './screens/Student/AddTeacher';
 import Teacher from './screens/Teacher';
 import Students from './screens/Student/Students';
 import Classes from './screens/Teacher/Classes';
+import StudentContextProvider from './contexts/studentContext';
+import ClassContextProvider from './contexts/className';
+import Report2 from './screens/Dashboard/Report2';
 
 function App() {
   // const downloadPDF = () => {
@@ -29,28 +32,30 @@ function App() {
   // };
 
   return (
-    <div>
-      <Routes>
-        <Route exact path="/" element={<HomeDashboard />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/report1/:id?" element={<Report1 />} />
-        <Route path="/add-student" element={<AddStudent />} />
-        <Route path="/students" element={<Students />} />
+    <StudentContextProvider>
+      <ClassContextProvider>
+        <Routes>
+          <Route exact path="/" element={<HomeDashboard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/report1/:id?" element={<Report2 />} />
+          <Route path="/add-student" element={<AddStudent />} />
+          <Route path="/students" element={<Students />} />
 
-        <Route path="/add-subject" element={<AddSubject />} />
-        <Route path="/add-class" element={<AddClass />} />
-        <Route path="/class" element={<Classes />} />
+          <Route path="/add-subject" element={<AddSubject />} />
+          <Route path="/add-class" element={<AddClass />} />
+          <Route path="/class" element={<Classes />} />
 
-        <Route path="/add-system" element={<AddSystem />} />
-        <Route path="/add-teacher" element={<AddTeacher />} />
-        <Route path="/teacher" element={<Teacher />} />
+          <Route path="/add-system" element={<AddSystem />} />
+          <Route path="/add-teacher" element={<AddTeacher />} />
+          <Route path="/teacher" element={<Teacher />} />
 
-        <Route path="/student-profile/:id?" element={<StudentProfile />} />
+          <Route path="/student-profile/:id?" element={<StudentProfile />} />
 
-      </Routes>
+        </Routes>
+      </ClassContextProvider>
 
-    </div>
+    </StudentContextProvider>
 
   );
 }
