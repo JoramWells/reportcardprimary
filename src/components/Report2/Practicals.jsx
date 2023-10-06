@@ -22,7 +22,26 @@ function CellComponent({ title, texts, width }) {
         ))}
 
       </div>
-      <div style={{ height: '.9rem', width: '100%' }} />
+      <div style={{
+        display: 'flex',
+      }}
+      >
+        {texts.map((text) => (
+          <input
+            key={text.id}
+            placeholder="GOOD"
+            style={{
+              width: '12%',
+              marginRight: '5px',
+              border: '0',
+              outline: 'none',
+              fontWeight: 'bold',
+              textAlign: 'center',
+
+            }}
+          />
+        ))}
+      </div>
 
       {/* numbers */}
     </div>

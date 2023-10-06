@@ -6,7 +6,7 @@ function Badge({ text, width, bold }) {
     <div
       style={{
         backgroundColor: 'whitesmoke',
-        padding: '3px',
+        padding: '2.4px',
         marginRight: '5px',
         fontWeight: bold ? '700' : '500',
         width: width || '12%',
