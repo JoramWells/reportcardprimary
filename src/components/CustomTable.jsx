@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 import { useSubjectApi } from '../hooks/useSubjectApi';
-import '../css/table.module.css';
+import '../css/CustomTable.module.css';
 import { useCalcApi } from '../hooks/useCalcApi';
 import { calculateTotalMarks, findTerm } from '../utils/calculate';
 

@@ -4,33 +4,20 @@ import Register from './screens/UserAuth/Register';
 import Report1 from './screens/Dashboard/Report1';
 import AddStudent from './screens/Student/AddStudent';
 import HomeDashboard from './screens/Dashboard/HomeDashboard';
-import AddSubject from './screens/Student/AddSubject';
 import StudentProfile from './screens/Student/StudentProfile';
 import AddClass from './screens/Student/AddClass';
 import AddSystem from './screens/Student/AddSystem';
-import AddTeacher from './screens/Student/AddTeacher';
+import AddTeacher from './screens/Teacher/AddTeacher';
 import Teacher from './screens/Teacher';
 import Students from './screens/Student/Students';
 import Classes from './screens/Teacher/Classes';
 import StudentContextProvider from './contexts/studentContext';
 import ClassContextProvider from './contexts/className';
 import Report2 from './screens/Dashboard/Report2';
+import ViewSubjects from './screens/Subjects/ViewSubjects';
+import CustomSubjectTab from './screens/Subjects/CustomSubjectTab';
 
 function App() {
-  // const downloadPDF = () => {
-  //   const capture = document.querySelector('.actual-receipt');
-  //   setLoader(loader);
-  //   html2canvas(capture).then((canvas) => {
-  //     const imgData = canvas.toDataURL('/img/jpeg', 1.0);
-  //     const doc = new jsPDF('p', 'mm', 'a4');
-  //     const componentWidth = doc.internal.pageSize.getWidth();
-  //     const componentHeight = doc.internal.pageSize.getHeight();
-  //     doc.addImage(imgData, 'JPEG', 0, 0, componentWidth, componentHeight);
-  //     setLoader(false);
-  //     doc.save('receipt.pdf');
-  //   });
-  // };
-
   return (
     <StudentContextProvider>
       <ClassContextProvider>
@@ -44,7 +31,9 @@ function App() {
           <Route path="/add-student" element={<AddStudent />} />
           <Route path="/students" element={<Students />} />
 
-          <Route path="/add-subject" element={<AddSubject />} />
+          <Route path="/add-subject" element={<CustomSubjectTab />} />
+          <Route path="/view-subjects" element={<ViewSubjects />} />
+
           <Route path="/add-class" element={<AddClass />} />
           <Route path="/class" element={<Classes />} />
 

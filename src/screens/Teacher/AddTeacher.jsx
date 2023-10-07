@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {
-  FormControl, Button, FormGroup, Paper, TextField,
+  FormControl, Button, FormGroup, Paper, TextField, InputLabel, Select, MenuItem,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import SaveIcon from '@mui/icons-material/Save';
@@ -24,6 +24,7 @@ function AddTeacher() {
   };
   const [firstName, setFirstName] = useState('');
   const [secondName, setSecondName] = useState('');
+  const [system, setSystem] = useState('');
 
   const [phoneNumber, setPhoneNumber] = useState('');
   const [IdNo, setIdNo] = useState('');
@@ -35,8 +36,13 @@ function AddTeacher() {
     firstName,
     secondName,
     phoneNumber,
+    system,
     IdNo,
 
+  };
+
+  const handleSystemChange = (e) => {
+    setSystem(e.target.value);
   };
 
   // const getTeachers = () => {
@@ -64,9 +70,9 @@ function AddTeacher() {
       const newSubject = [...userData, inputValues];
       setUserData(newSubject);
       addTeacher(newSubject);
-      toast('Added New Teacher');
+      toast.success('Added New Teacher');
     } else {
-      console.log('Cannot add two teachers');
+      toast.warning('Cannot add two teachers');
     }
   };
 
@@ -180,6 +186,26 @@ function AddTeacher() {
               />
             </FormControl>
 
+            <FormControl
+              style={{
+                margin: '1rem',
+              }}
+            >
+              <InputLabel id="demo-simple-select-label">Select System</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={system}
+                label="Term"
+                size="small"
+                onChange={handleSystemChange}
+              >
+                <MenuItem value="ECD">ECD</MenuItem>
+                <MenuItem value="Primary">Primary</MenuItem>
+
+              </Select>
+            </FormControl>
+
             <Button
               variant="contained"
               disableElevation
@@ -188,7 +214,7 @@ function AddTeacher() {
                 margin: 'auto',
                 // display: 'block',
                 padding: '10px',
-                marginTop: '2.5rem',
+                marginTop: '2rem',
                 // backgroundColor: '#291749',
               }}
               onClick={() => saveData()}

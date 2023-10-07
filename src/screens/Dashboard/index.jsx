@@ -124,9 +124,37 @@ export default function Dashboard({ children }) {
     <>
       <ListItemButton selected={pathname === '/'}>
         <ListItemIcon>
-          <DashboardIcon style={{ color: pathname === '/' && 'primary' }} />
+          <DashboardIcon sx={{ color: pathname === '/' && '#349EFF' }} />
         </ListItemIcon>
-        <ListItemText primary="Dashboard" onClick={() => navigate('/')} />
+        <ListItemText
+          primary={(
+            <div style={{
+              color: pathname === '/' && '#349EFF',
+            }}
+            >
+              Dashboard
+            </div>
+)}
+          onClick={() => navigate('/')}
+        />
+      </ListItemButton>
+
+      {/* subject */}
+      <ListItemButton onClick={() => navigate('/view-subjects')} selected={pathname === '/view-subjects'}>
+        <ListItemIcon>
+          <LayersIcon sx={{ color: pathname === '/view-subjects' && '#349EFF' }} />
+        </ListItemIcon>
+        <ListItemText
+          primary={(
+            <div style={{
+              color: pathname === '/add-subject' && '#349EFF',
+            }}
+            >
+              Subjects
+            </div>
+)}
+          onClick={() => navigate('/')}
+        />
       </ListItemButton>
 
       {/* students */}
@@ -234,12 +262,7 @@ export default function Dashboard({ children }) {
         </ListItemIcon>
         <ListItemText primary="Class" />
       </ListItemButton>
-      <ListItemButton onClick={() => navigate('/add-subject')} selected={pathname === '/add-subject'}>
-        <ListItemIcon>
-          <LayersIcon />
-        </ListItemIcon>
-        <ListItemText primary="Subjects" />
-      </ListItemButton>
+
     </>
   );
 
