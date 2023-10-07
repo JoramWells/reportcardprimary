@@ -18,6 +18,7 @@ function PrimaryAdd() {
   const [age, setAge] = useState('');
   const [subject, setSubject] = useState('');
   const [division, setDivision] = useState('');
+  const [profile, setProfile] = useState('');
 
   const { saveStudents } = useContext(StudentContext);
   const { classes } = useContext(ClassContext);
@@ -32,6 +33,7 @@ function PrimaryAdd() {
     age,
     division,
     type: 'Primary',
+    profile,
   };
 
   const handleChange = (e) => {
@@ -44,6 +46,7 @@ function PrimaryAdd() {
 
     reader.addEventListener('load', () => {
       localStorage.setItem('image', reader.result);
+      setProfile(reader.result);
     });
     if (image) {
       reader.readAsDataURL(image);

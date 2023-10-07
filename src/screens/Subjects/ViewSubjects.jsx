@@ -17,6 +17,7 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { DataGrid } from '@mui/x-data-grid';
 import Dashboard from '../Dashboard';
 import { getFromStorage } from '../../utils/localStorage';
+import { useLocalStorageFilterApi } from '../../hooks/useLocalStorageFilterApi';
 
 const columns = [
   {
@@ -55,6 +56,9 @@ export default function ViewSubjects() {
     localStorage.setItem('studentData', JSON.stringify(studentInfo.filter((student) => student.id !== id)));
     // localStorage.todo
   };
+
+  // const { results } = useLocalStorageFilterApi(studentInfo);
+  // console.log(results, 'resultx');
 
   return (
     <Dashboard>

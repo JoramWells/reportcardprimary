@@ -11,11 +11,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import { ToastContainer } from 'react-toastify';
 import PrintIcon from '@mui/icons-material/Print';
+import { DataGrid } from '@mui/x-data-grid';
 import Dashboard from '../Dashboard';
 import { useStudentApi } from '../../hooks/useStudentApi';
 import { getSubjects } from '../../utils/subjectFuncs';
 import { useSubjectApi } from '../../hooks/useSubjectApi';
-import StudentPerformance from './StudentPerformance';
 import profile from '../../imgs/profile.png';
 import StudentPerformanceChart from './StudentPerfomanceChart';
 import StudentPerformanceBarChart from './StudentPerformanceBarChart';
@@ -32,6 +32,27 @@ const style = {
   borderRadius: '10px',
   p: 4,
 };
+
+const columns = [
+  {
+    field: 'term',
+    headerName: 'Term',
+    flex: 1,
+  },
+  {
+    field: 'subject',
+    headerName: 'Subject',
+    flex: 1,
+
+  },
+  {
+    field: 'marks',
+    headerName: 'Marks',
+    flex: 1,
+
+  },
+
+];
 
 function StudentProfile() {
   const [subjects, setSubjects] = useState(getSubjects());
@@ -66,12 +87,16 @@ function StudentProfile() {
 
   };
 
-  const { saveStudentSubjectByID, studentSubjectByID } = useSubjectApi(inputValues);
+  const {
+    saveStudentSubjectByID, studentSubjectByID,
+    getStudentSubjectById,
+  } = useSubjectApi(inputValues);
 
   // const savedSubjects = getStudentSubjectById(id);
 
   useEffect(() => {
-    // if (id) { getStudentSubjectById(id); }
+    // getData();
+    getStudentSubjectById(id);
   }, []);
 
   return (
@@ -144,21 +169,20 @@ function StudentProfile() {
           }}
         >
           <img
-            src={profile}
+            src={results[0].profile}
             alt={results[0].firstName}
             style={{
-              width: '80px',
-              height: '80px',
-              objectFit: 'contain',
+              width: '100px',
+              height: '100px',
+              objectFit: 'cover',
+              borderRadius: '100px',
             }}
           />
           <Typography
             variant="h6"
-          >{results[0].firstName} {results[0].secondName}
+          >{results[0].firstName} {results[0].secondName} {results[0].age} yrs
           </Typography>
-          <div>
-            {results[0].age} yrs
-          </div>
+
           <div style={{
             fontWeight: 'bold',
             fontSize: '12px',
@@ -321,7 +345,17 @@ function StudentProfile() {
 
       <Grid item xs={12}>
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-          <StudentPerformance />
+          <DataGrid
+            columns={columns}
+            rows={studentSubjectByID}
+            disableRowSelectionOnClick
+            sx={{
+              '.MuiDataGrid-columnHeaderTitle': {
+                fontWeight: 'bold !important',
+                overflow: 'visible !important',
+              },
+            }}
+          />
         </Paper>
       </Grid>
       <ToastContainer />
