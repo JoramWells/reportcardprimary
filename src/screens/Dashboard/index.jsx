@@ -140,9 +140,9 @@ export default function Dashboard({ children }) {
       </ListItemButton>
 
       {/* subject */}
-      <ListItemButton onClick={() => navigate('/view-subjects')} selected={pathname === '/view-subjects'}>
+      <ListItemButton onClick={() => navigate('/subjects')} selected={pathname === '/subjects'}>
         <ListItemIcon>
-          <LayersIcon sx={{ color: pathname === '/view-subjects' && '#349EFF' }} />
+          <LayersIcon sx={{ color: pathname === '/subjects' && '#349EFF' }} />
         </ListItemIcon>
         <ListItemText
           primary={(

@@ -15,7 +15,7 @@ import StudentContextProvider from './contexts/studentContext';
 import ClassContextProvider from './contexts/className';
 import Report2 from './screens/Dashboard/Report2';
 import ViewSubjects from './screens/Subjects/ViewSubjects';
-import CustomSubjectTab from './screens/Subjects/CustomSubjectTab';
+import AddSubject from './screens/Subjects/AddSubject';
 
 function App() {
   return (
@@ -31,8 +31,8 @@ function App() {
           <Route path="/add-student" element={<AddStudent />} />
           <Route path="/students" element={<Students />} />
 
-          <Route path="/add-subject" element={<CustomSubjectTab />} />
-          <Route path="/view-subjects" element={<ViewSubjects />} />
+          <Route path="/add-subject" element={<AddSubject />} />
+          <Route path="/subjects" element={<ViewSubjects />} />
 
           <Route path="/add-class" element={<AddClass />} />
           <Route path="/class" element={<Classes />} />

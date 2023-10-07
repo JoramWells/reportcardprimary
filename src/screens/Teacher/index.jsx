@@ -1,13 +1,16 @@
 /* eslint-disable no-unused-vars */
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { Button, Typography } from '@mui/material';
+import {
+  Box, Button, Link, Typography,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 // import Attendance from '../Dashboard/Attendance';
 import { DataGrid } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Dashboard from '../Dashboard';
+import Title from '../Dashboard/Title';
 
 const columns = [
   {
@@ -69,8 +72,49 @@ export default function Teacher() {
             height: 240,
           }}
         >
-          {/* <Attendance /> */}
-          <Typography>Registered Teachers</Typography>
+          <Typography component="p" variant="h4">
+            {studentInfo.length}
+          </Typography>
+          <Typography color="text.secondary" sx={{ flex: 1 }}>
+            as of 15 March, 2019
+          </Typography>
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '80%',
+          }}
+          >
+            <div style={{
+              backgroundColor: 'whitesmoke',
+              borderRadius: '100px',
+              padding: '10px',
+              width: '35%',
+              textAlign: 'center',
+              color: 'grey',
+            }}
+            >
+              ECD
+
+            </div>
+
+            <div style={{
+              backgroundColor: 'whitesmoke',
+              borderRadius: '100px',
+              padding: '10px',
+              width: '35%',
+              textAlign: 'center',
+              color: 'grey',
+            }}
+            >
+              Primary
+
+            </div>
+          </Box>
+
+          <div>
+            <Typography variant="h4" color="text.primary">Registered Teachers</Typography>
+
+          </div>
         </Paper>
       </Grid>
 

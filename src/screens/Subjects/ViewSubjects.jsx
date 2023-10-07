@@ -14,51 +14,33 @@ import {
 import { useNavigate } from 'react-router-dom';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import { nanoid } from 'nanoid';
 import { DataGrid } from '@mui/x-data-grid';
-import TableComponent from '../../components/TableComponent';
 import Dashboard from '../Dashboard';
+import { getFromStorage } from '../../utils/localStorage';
 
 const columns = [
   {
-    field: 'firstName',
-    headerName: 'First Name',
+    field: 'subject',
+    headerName: 'Subject Name',
     flex: 1,
   },
   {
-    field: 'secondName',
-    headerName: 'Second Name',
+    field: 'teacher',
+    headerName: 'Subject Teacher',
     flex: 1,
 
   },
   {
-    field: 'indexCode',
-    headerName: 'Index Code',
+    field: 'classes',
+    headerName: 'Taught In',
     flex: 1,
 
   },
-  {
-    field: 'age',
-    headerName: 'Age (Yrs)',
-    flex: 1,
 
-  },
-  {
-    field: 'className',
-    headerName: 'Class Name',
-    flex: 1,
-
-  },
-  {
-    field: 'category',
-    headerName: 'Category',
-    flex: 1,
-
-  },
 ];
 
 export default function ViewSubjects() {
-  const [studentInfo, setStudentInfo] = useState([]);
+  const [studentInfo, setStudentInfo] = useState(getFromStorage('subjects'));
 
   const navigate = useNavigate();
 
@@ -73,11 +55,6 @@ export default function ViewSubjects() {
     localStorage.setItem('studentData', JSON.stringify(studentInfo.filter((student) => student.id !== id)));
     // localStorage.todo
   };
-
-  useEffect(() => {
-    getData();
-    console.log([studentInfo]);
-  }, []);
 
   return (
     <Dashboard>
