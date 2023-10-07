@@ -35,7 +35,7 @@ function App() {
           <Route path="/subjects" element={<ViewSubjects />} />
 
           <Route path="/add-class" element={<AddClass />} />
-          <Route path="/class" element={<Classes />} />
+          <Route path="/classes" element={<Classes />} />
 
           <Route path="/add-system" element={<AddSystem />} />
           <Route path="/add-teacher" element={<AddTeacher />} />

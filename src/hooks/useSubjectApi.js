@@ -6,14 +6,14 @@ import { toast } from 'react-toastify';
 import { getStudentSubjects, saveStudentSubjects } from '../utils/getStudents';
 
 /* eslint-disable import/prefer-default-export */
-export const useSubjectApi = (inputValues) => {
+export const useSubjectApi = () => {
   const { id } = useParams();
   const [savedSubjects, setSubjects] = useState(getStudentSubjects(id));
   const [studentSubjects, setStudentSubjects] = useState(getStudentSubjects());
 
   const [studentSubjectByID, setStudentSubjectByID] = useState([]);
 
-  const saveStudentSubjectByID = () => {
+  const saveStudentSubjectByID = (inputValues) => {
     const newSubjects = [...savedSubjects, inputValues];
     setSubjects(newSubjects);
     saveStudentSubjects(newSubjects);

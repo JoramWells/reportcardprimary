@@ -140,11 +140,11 @@ export default function Dashboard({ children }) {
       </ListItemButton>
 
       {/* class */}
-      <ListItemButton selected={pathname === '/class' || pathname === '/add-class'} onClick={() => navigate('/class')}>
+      <ListItemButton selected={pathname === '/classes' || pathname === '/add-class'} onClick={() => navigate('/classes')}>
         <ListItemIcon>
           <BoyIcon />
         </ListItemIcon>
-        <ListItemText primary="Class" />
+        <ListItemText primary="Classes" />
       </ListItemButton>
 
       {/* subject */}

@@ -19,6 +19,7 @@ import { useSubjectApi } from '../../hooks/useSubjectApi';
 import profile from '../../imgs/profile.png';
 import StudentPerformanceChart from './StudentPerfomanceChart';
 import StudentPerformanceBarChart from './StudentPerformanceBarChart';
+import { findTerm } from '../../utils/calculate';
 
 const style = {
   position: 'absolute',
@@ -77,20 +78,21 @@ function StudentProfile() {
 
   const { id } = useParams();
 
+  const {
+    saveStudentSubjectByID, studentSubjectByID,
+    getStudentSubjectById,
+  } = useSubjectApi();
+
   const inputValues = {
     id: nanoid(),
     studentId: id,
     term,
     subject,
     marks,
+    'average-BOT': findTerm(studentSubjectByID, 'BOT'),
     ['marks-' + `${term}`]: marks,
 
   };
-
-  const {
-    saveStudentSubjectByID, studentSubjectByID,
-    getStudentSubjectById,
-  } = useSubjectApi(inputValues);
 
   // const savedSubjects = getStudentSubjectById(id);
 
