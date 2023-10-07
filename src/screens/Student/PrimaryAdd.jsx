@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable no-unused-vars */
 import {
   FormControl, Button, FormGroup, Paper, TextField, InputLabel, Select, MenuItem,
@@ -35,6 +36,18 @@ function PrimaryAdd() {
 
   const handleChange = (e) => {
     setSubject(e.target.value);
+  };
+
+  const uploadPhoto = (e) => {
+    const image = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+      localStorage.setItem('image', reader.result);
+    });
+    if (image) {
+      reader.readAsDataURL(image);
+    }
   };
 
   return (
@@ -188,6 +201,7 @@ function PrimaryAdd() {
               />
             </FormControl>
 
+            <input type="file" onChange={(e) => uploadPhoto(e)} />
             <Button
               variant="contained"
               disableElevation

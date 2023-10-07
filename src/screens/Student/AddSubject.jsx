@@ -6,6 +6,9 @@ import SaveIcon from '@mui/icons-material/Save';
 
 import Dashboard from '../Dashboard';
 
+const electron = window.require('electron');
+const { ipcRenderer } = electron;
+
 function AddSubject() {
   const getSubjects = () => {
     const data = localStorage.getItem('subjects');
@@ -45,6 +48,7 @@ function AddSubject() {
       const newSubject = [...userData, inputValues];
       setUserData(newSubject);
       saveSubject(newSubject);
+      ipcRenderer.send('asynchronous', 'ping');
     } else {
       console.log('Cannot add two subjects');
     }
