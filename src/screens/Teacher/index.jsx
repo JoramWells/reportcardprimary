@@ -9,8 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import Dashboard from '../Dashboard';
-import Title from '../Dashboard/Title';
 
 const columns = [
   {
@@ -62,7 +60,7 @@ export default function Teacher() {
   }, []);
 
   return (
-    <Dashboard>
+    <>
       <Grid item xs={12} md={8} lg={4}>
         <Paper
           sx={{
@@ -150,6 +148,6 @@ export default function Teacher() {
 
         </Paper>
       </Grid>
-    </Dashboard>
+    </>
   );
 }

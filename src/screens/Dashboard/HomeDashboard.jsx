@@ -4,12 +4,11 @@ import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
 
-import Dashboard from '.';
 import Attendance from './Attendance';
 
 export default function HomeDashboard() {
   return (
-    <Dashboard>
+    <>
       <Grid item xs={12} md={8} lg={9}>
         <Paper
           sx={{
@@ -69,6 +68,6 @@ export default function HomeDashboard() {
           <Orders />
         </Paper>
       </Grid>
-    </Dashboard>
+    </>
   );
 }

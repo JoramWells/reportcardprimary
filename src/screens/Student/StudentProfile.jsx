@@ -12,11 +12,9 @@ import { nanoid } from 'nanoid';
 import { ToastContainer } from 'react-toastify';
 import PrintIcon from '@mui/icons-material/Print';
 import { DataGrid } from '@mui/x-data-grid';
-import Dashboard from '../Dashboard';
 import { useStudentApi } from '../../hooks/useStudentApi';
 import { getSubjects } from '../../utils/subjectFuncs';
 import { useSubjectApi } from '../../hooks/useSubjectApi';
-import profile from '../../imgs/profile.png';
 import StudentPerformanceChart from './StudentPerfomanceChart';
 import StudentPerformanceBarChart from './StudentPerformanceBarChart';
 import { findTerm } from '../../utils/calculate';
@@ -102,7 +100,7 @@ function StudentProfile() {
   }, []);
 
   return (
-    <Dashboard>
+    <>
       <Grid item xs={12} md={6} lg={4}>
         <Paper
           sx={{
@@ -362,7 +360,7 @@ function StudentProfile() {
       </Grid>
       <ToastContainer />
 
-    </Dashboard>
+    </>
   );
 }
 

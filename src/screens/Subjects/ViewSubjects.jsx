@@ -1,12 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useEffect, useState } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
+import { useState } from 'react';
+
 import {
   Button,
   Grid, IconButton, Paper, Tooltip,
@@ -15,7 +10,6 @@ import { useNavigate } from 'react-router-dom';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { DataGrid } from '@mui/x-data-grid';
-import Dashboard from '../Dashboard';
 import { getFromStorage } from '../../utils/localStorage';
 import { useLocalStorageFilterApi } from '../../hooks/useLocalStorageFilterApi';
 
@@ -61,7 +55,7 @@ export default function ViewSubjects() {
   // console.log(results, 'resultx');
 
   return (
-    <Dashboard>
+    <>
 
       <Grid
         item
@@ -93,6 +87,6 @@ export default function ViewSubjects() {
         </Paper>
 
       </Grid>
-    </Dashboard>
+    </>
   );
 }

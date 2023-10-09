@@ -6,7 +6,6 @@ import SaveIcon from '@mui/icons-material/Save';
 
 import { nanoid } from 'nanoid';
 import { ToastContainer, toast } from 'react-toastify';
-import Dashboard from '../Dashboard';
 
 function AddClass() {
   const getClasses = () => {
@@ -61,7 +60,7 @@ function AddClass() {
     }
   }, []);
   return (
-    <Dashboard>
+    <>
       <div
         style={{
           display: 'flex',
@@ -135,7 +134,7 @@ function AddClass() {
         </Paper>
       </div>
       <ToastContainer />
-    </Dashboard>
+    </>
   );
 }
 

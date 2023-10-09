@@ -9,14 +9,10 @@ import { nanoid } from 'nanoid';
 import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
-import Dashboard from '../Dashboard';
-
 function AddTeacher() {
   // get route path
   const location = useLocation();
   const { pathname } = location;
-
-  console.log(pathname, 'lctn');
 
   const getTeachers = () => {
     const data = localStorage.getItem('Teachers');
@@ -83,154 +79,154 @@ function AddTeacher() {
     }
   }, []);
   return (
-    <Dashboard>
-      <div
+
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '70vh',
+        width: '100%',
+      }}
+    >
+
+      <Paper
         style={{
+          width: '50%',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '70vh',
-          width: '100%',
+          padding: '10px',
+          position: 'relative',
         }}
+        sx={{
+          paddingTop: '10px',
+          pb: 10,
+        }}
+        elevation={0}
       >
-
-        <Paper
-          style={{
-            width: '50%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: '10px',
-            position: 'relative',
-          }}
-          sx={{
-            paddingTop: '10px',
-            pb: 10,
-          }}
-          elevation={0}
+        <FormGroup style={{
+          width: '80%',
+        }}
         >
-          <FormGroup style={{
-            width: '80%',
-          }}
+
+          {/* name of teacher */}
+          <FormControl
+            style={{
+              margin: '1rem',
+            }}
           >
-
-            {/* name of teacher */}
-            <FormControl
+            <TextField
+              id="outlined-basic"
+              label="First Name"
+              variant="outlined"
+              size="small"
               style={{
-                margin: '1rem',
+                width: '100%',
               }}
-            >
-              <TextField
-                id="outlined-basic"
-                label="First Name"
-                variant="outlined"
-                size="small"
-                style={{
-                  width: '100%',
-                }}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-            </FormControl>
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </FormControl>
 
-            {/* name of teacher */}
-            <FormControl
+          {/* name of teacher */}
+          <FormControl
+            style={{
+              margin: '1rem',
+            }}
+          >
+            <TextField
+              id="outlined-basic"
+              label="Second Name"
+              variant="outlined"
+              size="small"
               style={{
-                margin: '1rem',
+                width: '100%',
               }}
-            >
-              <TextField
-                id="outlined-basic"
-                label="Second Name"
-                variant="outlined"
-                size="small"
-                style={{
-                  width: '100%',
-                }}
-                onChange={(e) => setSecondName(e.target.value)}
-              />
-            </FormControl>
+              onChange={(e) => setSecondName(e.target.value)}
+            />
+          </FormControl>
 
-            {/* Number of Students  */}
-            <FormControl
+          {/* Number of Students  */}
+          <FormControl
+            style={{
+              margin: '1rem',
+            }}
+          >
+            <TextField
+              id="outlined-basic"
+              label="Phone Number"
+              variant="outlined"
+              size="small"
               style={{
-                margin: '1rem',
+                width: '100%',
               }}
-            >
-              <TextField
-                id="outlined-basic"
-                label="Phone Number"
-                variant="outlined"
-                size="small"
-                style={{
-                  width: '100%',
-                }}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-              />
-            </FormControl>
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+          </FormControl>
 
-            {/* Name of class teacher */}
-            <FormControl
+          {/* Name of class teacher */}
+          <FormControl
+            style={{
+              margin: '1rem',
+            }}
+          >
+            <TextField
+              id="outlined-basic"
+              label="ID Number"
+              variant="outlined"
+              size="small"
               style={{
-                margin: '1rem',
+                width: '100%',
               }}
+              onChange={(e) => setIdNo(e.target.value)}
+            />
+          </FormControl>
+
+          <FormControl
+            style={{
+              margin: '1rem',
+            }}
+          >
+            <InputLabel id="demo-simple-select-label">Select System</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={system}
+              label="Term"
+              size="small"
+              onChange={handleSystemChange}
             >
-              <TextField
-                id="outlined-basic"
-                label="ID Number"
-                variant="outlined"
-                size="small"
-                style={{
-                  width: '100%',
-                }}
-                onChange={(e) => setIdNo(e.target.value)}
-              />
-            </FormControl>
+              <MenuItem value="ECD">ECD</MenuItem>
+              <MenuItem value="Primary">Primary</MenuItem>
 
-            <FormControl
-              style={{
-                margin: '1rem',
-              }}
-            >
-              <InputLabel id="demo-simple-select-label">Select System</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={system}
-                label="Term"
-                size="small"
-                onChange={handleSystemChange}
-              >
-                <MenuItem value="ECD">ECD</MenuItem>
-                <MenuItem value="Primary">Primary</MenuItem>
+            </Select>
+          </FormControl>
 
-              </Select>
-            </FormControl>
+          <Button
+            variant="contained"
+            disableElevation
+            style={{
+              width: '94%',
+              margin: 'auto',
+              // display: 'block',
+              padding: '10px',
+              marginTop: '2rem',
+              // backgroundColor: '#291749',
+            }}
+            onClick={() => saveData()}
+            endIcon={<SaveIcon />}
+          >
+            SAVE
+          </Button>
 
-            <Button
-              variant="contained"
-              disableElevation
-              style={{
-                width: '94%',
-                margin: 'auto',
-                // display: 'block',
-                padding: '10px',
-                marginTop: '2rem',
-                // backgroundColor: '#291749',
-              }}
-              onClick={() => saveData()}
-              endIcon={<SaveIcon />}
-            >
-              SAVE
-            </Button>
+          {/* have an account */}
 
-            {/* have an account */}
+        </FormGroup>
 
-          </FormGroup>
+      </Paper>
+      <ToastContainer />
+    </div>
 
-        </Paper>
-        <ToastContainer />
-      </div>
-    </Dashboard>
   );
 }
 

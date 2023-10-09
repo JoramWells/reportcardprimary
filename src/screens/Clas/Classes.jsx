@@ -9,7 +9,6 @@ import AddIcon from '@mui/icons-material/Add';
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-import Dashboard from '../Dashboard';
 import { getFromStorage } from '../../utils/localStorage';
 
 const classes = getFromStorage('Classes');
@@ -70,7 +69,7 @@ function Classes() {
     },
   ];
   return (
-    <Dashboard>
+    <>
       <Box style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -106,7 +105,7 @@ function Classes() {
           />
         </Paper>
       </Grid>
-    </Dashboard>
+    </>
   );
 }
 

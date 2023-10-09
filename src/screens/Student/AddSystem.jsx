@@ -4,8 +4,6 @@ import {
 import { useEffect, useState } from 'react';
 import SaveIcon from '@mui/icons-material/Save';
 
-import Dashboard from '../Dashboard';
-
 function AddSystem() {
   const getSubjects = () => {
     const data = localStorage.getItem('subjects');
@@ -57,71 +55,69 @@ function AddSystem() {
     }
   }, []);
   return (
-    <Dashboard>
-      <div style={{
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100vh',
+      width: '100%',
+    }}
+    >
+
+      <Paper style={{
+        width: '50%',
+        height: '50%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',
-        width: '100%',
+        padding: '10px',
+        position: 'relative',
       }}
       >
-
-        <Paper style={{
-          width: '50%',
-          height: '50%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: '10px',
-          position: 'relative',
+        <FormGroup style={{
+          width: '80%',
         }}
         >
-          <FormGroup style={{
-            width: '80%',
-          }}
+          <FormControl
+            style={{
+              margin: '1rem',
+            }}
           >
-            <FormControl
+            <TextField
+              id="outlined-basic"
+              label="Subject Name"
+              variant="outlined"
+              size="small"
               style={{
-                margin: '1rem',
+                width: '100%',
               }}
-            >
-              <TextField
-                id="outlined-basic"
-                label="Subject Name"
-                variant="outlined"
-                size="small"
-                style={{
-                  width: '100%',
-                }}
-                onChange={(e) => setSubject(e.target.value)}
-              />
-            </FormControl>
+              onChange={(e) => setSubject(e.target.value)}
+            />
+          </FormControl>
 
-            <Button
-              variant="contained"
-              disableElevation
-              style={{
-                width: '94%',
-                margin: 'auto',
-                // display: 'block',
-                padding: '10px',
-                marginTop: '2.5rem',
-                // backgroundColor: '#291749',
-              }}
-              onClick={() => saveData()}
-              endIcon={<SaveIcon />}
-            >
-              SAVE
-            </Button>
+          <Button
+            variant="contained"
+            disableElevation
+            style={{
+              width: '94%',
+              margin: 'auto',
+              // display: 'block',
+              padding: '10px',
+              marginTop: '2.5rem',
+              // backgroundColor: '#291749',
+            }}
+            onClick={() => saveData()}
+            endIcon={<SaveIcon />}
+          >
+            SAVE
+          </Button>
 
-            {/* have an account */}
+          {/* have an account */}
 
-          </FormGroup>
+        </FormGroup>
 
-        </Paper>
-      </div>
-    </Dashboard>
+      </Paper>
+    </div>
   );
 }
 

@@ -53,137 +53,135 @@ function Report2() {
   }, [id]);
 
   return (
-    <Dashboard>
+    <div style={{
+      width: '80%',
+      float: 'right',
+    }}
+    >
       <div style={{
-        width: '80%',
-        float: 'right',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        height: '100vh',
+        // padding: '10px',
       }}
       >
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          height: '100vh',
-          // padding: '10px',
-        }}
-        >
 
-          {/* report section */}
-          <Paper>
-            <div
-              style={{
-                width: '793.7007874px',
-                height: '1122.519685px',
-                // margin: "30mm 45mm 30mm 45mm"
-              }}
-              className="actual-receipt"
+        {/* report section */}
+        <Paper>
+          <div
+            style={{
+              width: '793.7007874px',
+              height: '1122.519685px',
+              // margin: "30mm 45mm 30mm 45mm"
+            }}
+            className="actual-receipt"
+          >
+            <div style={{
+              border: '1px solid grey',
+              height: '100%',
+              backgroundColor: 'white',
+            }}
             >
+              <Header />
+              <PersonalDetails
+                firstName={results[0].firstName}
+                secondName={results[0].secondName}
+                age={results[0].age}
+                house={results[0].houseName}
+              />
+
+              <Practicals />
+              <ResultsTable />
+
               <div style={{
-                border: '1px solid grey',
-                height: '100%',
-                backgroundColor: 'white',
+                marginTop: '.2rem',
+                display: 'flex',
+                justifyContent: 'space-evenly',
+                alignItems: 'flex-end',
               }}
               >
-                <Header />
-                <PersonalDetails
-                  firstName={results[0].firstName}
-                  secondName={results[0].secondName}
-                  age={results[0].age}
-                  house={results[0].houseName}
+                <Badge text="School Requirements" width="30%" />
+                <Underline
+                  width="70%"
                 />
-
-                <Practicals />
-                <ResultsTable />
-
-                <div style={{
-                  marginTop: '.2rem',
-                  display: 'flex',
-                  justifyContent: 'space-evenly',
-                  alignItems: 'flex-end',
-                }}
-                >
-                  <Badge text="School Requirements" width="30%" />
-                  <Underline
-                    width="70%"
-                  />
-                </div>
-
-                {/* headteacher */}
-                <div style={{
-                  marginTop: '.5rem',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-end',
-                }}
-                >
-                  <Badge text="Teachers comments" width="40%" />
-                  <Underline width="60%" />
-
-                </div>
-
-                <div style={{
-                  marginTop: '.5rem',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-end',
-                }}
-                >
-                  <Badge text="Headteachers comments" width="40%" />
-                  <Underline width="60%" />
-
-                </div>
-
-                {/* requirements */}
-                <div style={{
-                  marginTop: '.5rem',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-end',
-                }}
-                >
-                  <Badge text="Next term begins" width="15%" />
-                  <Underline width="85%" />
-
-                </div>
-
               </div>
 
+              {/* headteacher */}
               <div style={{
-                marginTop: '1rem',
-                marginBottom: '1rem',
+                marginTop: '.5rem',
                 display: 'flex',
                 justifyContent: 'space-between',
+                alignItems: 'flex-end',
               }}
               >
-                <Button
-                  variant="outlined"
-                  sx={{
-                    width: '40%',
-                  }}
-                  onClick={() => downloadPDF()}
-                >
-                  SAVE
-
-                </Button>
-                <Button
-                  variant="contained"
-                  sx={{
-                    width: '40%',
-                  }}
-                  onClick={() => downloadPDF()}
-                >
-                  DOWNLOAD
-
-                </Button>
+                <Badge text="Teachers comments" width="40%" />
+                <Underline width="60%" />
 
               </div>
+
+              <div style={{
+                marginTop: '.5rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-end',
+              }}
+              >
+                <Badge text="Headteachers comments" width="40%" />
+                <Underline width="60%" />
+
+              </div>
+
+              {/* requirements */}
+              <div style={{
+                marginTop: '.5rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-end',
+              }}
+              >
+                <Badge text="Next term begins" width="15%" />
+                <Underline width="85%" />
+
+              </div>
+
             </div>
 
-          </Paper>
+            <div style={{
+              marginTop: '1rem',
+              marginBottom: '1rem',
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+            >
+              <Button
+                variant="outlined"
+                sx={{
+                  width: '40%',
+                }}
+                onClick={() => downloadPDF()}
+              >
+                SAVE
 
-        </div>
+              </Button>
+              <Button
+                variant="contained"
+                sx={{
+                  width: '40%',
+                }}
+                onClick={() => downloadPDF()}
+              >
+                DOWNLOAD
+
+              </Button>
+
+            </div>
+          </div>
+
+        </Paper>
+
       </div>
-    </Dashboard>
+    </div>
 
   );
 }

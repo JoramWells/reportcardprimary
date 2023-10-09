@@ -3,8 +3,6 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
-import { useEffect } from 'react';
-import Dashboard from '../Dashboard';
 import TableComponent from '../../components/TableComponent';
 import { getFromStorage } from '../../utils/localStorage';
 
@@ -38,12 +36,9 @@ const columns = [{
 ];
 
 function Students() {
-  useEffect(() => {
-    console.log('rendered');
-  }, []);
   const navigate = useNavigate();
   return (
-    <Dashboard>
+    <>
       <Box style={{
         display: 'flex',
         justifyContent: 'flex-end',
@@ -72,7 +67,7 @@ function Students() {
 
         </Paper>
       </Grid>
-    </Dashboard>
+    </>
   );
 }
 

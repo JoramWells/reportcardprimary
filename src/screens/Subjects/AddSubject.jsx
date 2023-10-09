@@ -7,7 +7,6 @@ import SaveIcon from '@mui/icons-material/Save';
 import { ToastContainer, toast } from 'react-toastify';
 import { nanoid } from 'nanoid';
 import { getFromStorage } from '../../utils/localStorage';
-import Dashboard from '../Dashboard';
 
 // const electron = window.require('electron');
 // const { ipcRenderer } = electron;
@@ -83,118 +82,116 @@ function AddSubject() {
     }
   }, []);
   return (
-    <Dashboard>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '80vh',
-        width: '100%',
-      }}
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '80vh',
+      width: '100%',
+    }}
+    >
+
+      <Paper
+        sx={{
+          width: '50%',
+          height: '70%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '10px',
+          position: 'relative',
+          borderRadius: '15px',
+        }}
+        elevation={0}
       >
-
-        <Paper
-          sx={{
-            width: '50%',
-            height: '70%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: '10px',
-            position: 'relative',
-            borderRadius: '15px',
-          }}
-          elevation={0}
+        <FormGroup style={{
+          width: '80%',
+        }}
         >
-          <FormGroup style={{
-            width: '80%',
-          }}
+          <FormControl
+            style={{
+              margin: '1rem',
+            }}
           >
-            <FormControl
+            <TextField
+              id="outlined-basic"
+              label="Subject Name"
+              variant="outlined"
+              size="small"
               style={{
-                margin: '1rem',
+                width: '100%',
               }}
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+            />
+          </FormControl>
+          <FormControl
+            style={{
+              margin: '1rem',
+            }}
+          >
+            <InputLabel id="demo-simple-select-label">Select System</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={system}
+              label="Term"
+              size="small"
+              onChange={handleSystemChange}
             >
-              <TextField
-                id="outlined-basic"
-                label="Subject Name"
-                variant="outlined"
-                size="small"
-                style={{
-                  width: '100%',
-                }}
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-              />
-            </FormControl>
-            <FormControl
-              style={{
-                margin: '1rem',
-              }}
+              <MenuItem value="ECD">ECD</MenuItem>
+              <MenuItem value="Primary">Primary</MenuItem>
+
+            </Select>
+          </FormControl>
+          <FormControl
+            style={{
+              margin: '1rem',
+            }}
+          >
+            <InputLabel id="demo-simple-select-label">Select Teacher</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={teacher}
+              label="Term"
+              size="small"
+              onChange={handleChange}
             >
-              <InputLabel id="demo-simple-select-label">Select System</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={system}
-                label="Term"
-                size="small"
-                onChange={handleSystemChange}
-              >
-                <MenuItem value="ECD">ECD</MenuItem>
-                <MenuItem value="Primary">Primary</MenuItem>
+              {teachers.map((item) => (
+                <MenuItem value={item.id}>{`${item.firstName} ${item.secondName}`}</MenuItem>
+              ))}
 
-              </Select>
-            </FormControl>
-            <FormControl
-              style={{
-                margin: '1rem',
-              }}
-            >
-              <InputLabel id="demo-simple-select-label">Select Teacher</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={teacher}
-                label="Term"
-                size="small"
-                onChange={handleChange}
-              >
-                {teachers.map((item) => (
-                  <MenuItem value={item.id}>{`${item.firstName} ${item.secondName}`}</MenuItem>
-                ))}
+            </Select>
+          </FormControl>
 
-              </Select>
-            </FormControl>
+          <Button
+            variant="contained"
+            disableElevation
+            style={{
+              width: '94%',
+              margin: 'auto',
+              // display: 'block',
+              padding: '8px',
+              marginTop: '2.5rem',
+              // backgroundColor: '#291749',
+              fontWeight: 'bold',
+            }}
+            onClick={() => saveData()}
+            endIcon={<SaveIcon />}
+          >
+            ADD SUBJECT
+          </Button>
 
-            <Button
-              variant="contained"
-              disableElevation
-              style={{
-                width: '94%',
-                margin: 'auto',
-                // display: 'block',
-                padding: '8px',
-                marginTop: '2.5rem',
-                // backgroundColor: '#291749',
-                fontWeight: 'bold',
-              }}
-              onClick={() => saveData()}
-              endIcon={<SaveIcon />}
-            >
-              ADD SUBJECT
-            </Button>
+          {/* have an account */}
 
-            {/* have an account */}
+        </FormGroup>
 
-          </FormGroup>
+      </Paper>
+      {' '}
+      <ToastContainer draggable closeOnClick />
 
-        </Paper>
-        {' '}
-        <ToastContainer draggable closeOnClick />
-
-      </div>
-    </Dashboard>
+    </div>
   );
 }
 

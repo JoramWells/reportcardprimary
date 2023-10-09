@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 import { DataGrid } from '@mui/x-data-grid';
-import Dashboard from '../Dashboard';
 import { getFromStorage } from '../../utils/localStorage';
 
 const columns = [
@@ -48,7 +47,7 @@ const columns = [
 function Streams() {
   const navigate = useNavigate();
   return (
-    <Dashboard>
+    <>
       <Box style={{
         display: 'flex',
         justifyContent: 'flex-end',
@@ -82,7 +81,7 @@ function Streams() {
 
         </Paper>
       </Grid>
-    </Dashboard>
+    </>
   );
 }
 
