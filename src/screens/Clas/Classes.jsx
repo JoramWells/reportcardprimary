@@ -58,7 +58,7 @@ function Classes() {
         <IconButton onClick={() => {
           const selectedIDs = new Set(selection);
           setRows((r) => r.filter((x) => !selectedIDs.has(x.id)));
-          console.log(selectedIDs);
+          // console.log(selectedIDs);
           deleteStudent();
         }}
         >

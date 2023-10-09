@@ -1,38 +1,58 @@
 import {
-  Box, Button, Grid, Paper,
+  Box, Button, Grid, IconButton, Paper,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { nanoid } from 'nanoid';
-import TableComponent from '../../components/TableComponent';
+import { DataGrid } from '@mui/x-data-grid';
 import { getFromStorage } from '../../utils/localStorage';
 
-const columns = [{
-  id: nanoid(),
-  columnName: 'First Name',
-},
-{
-  id: nanoid(),
-  columnName: 'Second Name',
-}, {
-  id: nanoid(),
-  columnName: 'Index Code',
-},
-{
-  id: nanoid(),
-  columnName: 'Age (Yrs)',
-},
-{
-  id: nanoid(),
-  columnName: 'Category',
-},
-{
-  id: nanoid(),
-  columnName: 'Classname',
-},
-{
-  id: nanoid(),
-  columnName: 'Action',
-},
+const columns = [
+  {
+    field: 'firstName',
+    headerName: 'First Name',
+    flex: 1,
+  },
+  {
+    field: 'secondName',
+    headerName: 'Second Name',
+    flex: 1,
+
+  },
+  {
+    field: 'indexCode',
+    headerName: 'Index Code',
+    flex: 1,
+
+  },
+  {
+    field: 'age',
+    headerName: 'Age (Yrs)',
+    flex: 1,
+
+  },
+  {
+    field: 'category',
+    headerName: 'Category',
+    flex: 1,
+
+  },
+  {
+    field: 'className',
+    headerName: 'Class Name',
+    flex: 1,
+
+  },
+  {
+    field: 'action',
+    headerName: 'Action',
+    flex: 1,
+    sortable: false,
+    renderCell: () => (
+      <IconButton>
+        x
+      </IconButton>
+    ),
+
+  },
 ];
 
 function Students() {
@@ -59,10 +79,17 @@ function Students() {
       </Box>
       <Grid item xs={12}>
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-          <TableComponent
+          <DataGrid
+            rows={getFromStorage('studentData')}
             columns={columns}
-            data={getFromStorage('studentData')}
-            navigationLink="/student-profile/"
+            disableRowSelectionOnClick
+            sx={{
+              '.MuiDataGrid-columnHeaderTitle': {
+                fontWeight: 'bold !important',
+                overflow: 'visible !important',
+              },
+            }}
+
           />
 
         </Paper>
