@@ -20,8 +20,10 @@ function PrimaryAdd() {
   const [division, setDivision] = useState('');
   const [profile, setProfile] = useState('');
 
-  const { saveStudents } = useContext(StudentContext);
+  // const { saveStudents } = useContext(StudentContext);
   const { classes } = useContext(ClassContext);
+
+  const { createStudent, studentList } = useContext(StudentContext);
 
   const inputValues = {
     id: nanoid(),
@@ -52,6 +54,10 @@ function PrimaryAdd() {
       reader.readAsDataURL(image);
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem('studentData', JSON.stringify(studentList));
+  }, [createStudent]);
 
   return (
     <div style={{
@@ -213,7 +219,7 @@ function PrimaryAdd() {
                 padding: '5px',
                 marginTop: '1.5rem',
               }}
-              onClick={() => saveStudents(inputValues)}
+              onClick={() => createStudent(inputValues)}
             >
               SAVE STUDENT
             </Button>
