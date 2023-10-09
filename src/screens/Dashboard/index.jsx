@@ -190,6 +190,24 @@ export default function Dashboard({ children }) {
         </List>
       </Collapse>
 
+      {/* streams */}
+      <ListItemButton selected={pathname === '/streams'}>
+        <ListItemIcon>
+          <DashboardIcon sx={{ color: pathname === '/streams' && '#349EFF' }} />
+        </ListItemIcon>
+        <ListItemText
+          primary={(
+            <div style={{
+              color: pathname === '/streams' && '#349EFF',
+            }}
+            >
+              Streams
+            </div>
+)}
+          onClick={() => navigate('/streams')}
+        />
+      </ListItemButton>
+
       {/* system */}
 
       <ListItemButton onClick={handleSystemOpen}>

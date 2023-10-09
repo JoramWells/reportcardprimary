@@ -1,110 +1,145 @@
 import {
-    FormControl, Button, FormGroup, Paper, TextField,
-  } from '@mui/material';
-  import { useEffect, useState } from 'react';
-  import SaveIcon from '@mui/icons-material/Save';
-  
-  import { nanoid } from 'nanoid';
-  import { ToastContainer, toast } from 'react-toastify';
-  import Dashboard from '../Dashboard';
-  
-  function AddStreams() {
+  FormControl, Button, FormGroup, Paper, TextField, IconButton, InputLabel, Select, MenuItem,
+} from '@mui/material';
+import { useContext, useEffect, useState } from 'react';
+import SaveIcon from '@mui/icons-material/Save';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { nanoid } from 'nanoid';
+import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import Dashboard from '../Dashboard';
+import { getFromStorage } from '../../utils/localStorage';
+import { ClassContext } from '../../contexts/className';
 
-    const [className, setClassName] = useState('');
-    const [streamName, setstreamName] = useState('');
-    const [classTeacher, setClassTeacher] = useState('');
-  
-    const streamData = getFromStorage('Streams')
-  
-    const inputValues = {
-      id: nanoid(),
-      streamName,
-      className,
-      classTeacher,
-  
-    };
+const teachers = getFromStorage('Teachers');
 
-  
-    const addClass = (subjects) => {
-      localStorage.setItem('Classes', JSON.stringify(subjects));
-    };
-  
-    const getClassName = (name) => {
-      const results = streamData.filter(
-        (subj) => subj.className.toLowerCase().includes(name.toLowerCase()),
-      );
-      if (results.length > 0) return true;
-      return false;
-    };
-  
-    const saveData = () => {
-      if (!getClassName(inputValues.className)) {
-        const newSubject = [...userData, inputValues];
-        setUserData(newSubject);
-        addClass(newSubject);
-        toast('Added New Class');
-      } else {
-        console.log('Cannot add two classes');
-      }
-    };
-  
-    useEffect(() => {
-      const hasUser = localStorage.getItem('Classes');
-      if (hasUser && hasUser.length < 0) {
-        localStorage.setItem('Classes', JSON.stringify(userData));
-      }
-    }, []);
-    return (
-      <Dashboard>
-        <div
+function AddStreams() {
+  const [className, setClassName] = useState('');
+  const [streamName, setstreamName] = useState('');
+  const [classTeacher, setClassTeacher] = useState('');
+  const [noOfStudents, setNoOfStudents] = useState('');
+
+  const streamData = getFromStorage('Streams');
+
+  const navigate = useNavigate();
+
+  const inputValues = {
+    id: nanoid(),
+    streamName,
+    className,
+    classTeacher,
+    noOfStudents,
+
+  };
+
+  const handleChange = (e) => {
+    setClassName(e.target.value);
+  };
+
+  const handleTeacherChange = (e) => {
+    setClassTeacher(e.target.value);
+  };
+
+  const addStream = (subjects) => {
+    localStorage.setItem('Streams', JSON.stringify(subjects));
+  };
+
+  const getStreamName = (name) => {
+    const results = streamData.filter(
+      (subj) => subj.streamName.toLowerCase().includes(name.toLowerCase()),
+    );
+    if (results.length > 0) return true;
+    return false;
+  };
+
+  const saveData = () => {
+    if (!getStreamName(inputValues.streamName)) {
+      const newSubject = [...streamData, inputValues];
+      // setUserData(newSubject);
+      addStream(newSubject);
+      toast.success('Added New Class');
+    } else {
+      toast.warning('Cannot add two classes');
+    }
+  };
+
+  const { classes } = useContext(ClassContext);
+
+  useEffect(() => {
+    const hasUser = localStorage.getItem('Streams');
+    if (hasUser && hasUser.length < 0) {
+      localStorage.setItem('Streams', JSON.stringify(streamData));
+    }
+  }, []);
+  return (
+    <Dashboard>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '70vh',
+          width: '100%',
+        }}
+      >
+
+        <Paper
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '70vh',
-            width: '100%',
+            width: '50%',
+            padding: '10px',
+            position: 'relative',
           }}
-  
+          sx={{
+            pt: 10,
+            pb: 10,
+          }}
+          elevation={0}
         >
-  
-          <Paper
+          <IconButton onClick={() => navigate('/streams')}>
+            <ArrowBackIcon />
+          </IconButton>
+          <div
             style={{
-              width: '50%',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              padding: '10px',
               position: 'relative',
             }}
-            sx={{
-              pt: 10,
-              pb: 10,
-            }}
-            elevation={0}
           >
             <FormGroup style={{
               width: '80%',
             }}
             >
-  
+
               {/* name of class */}
+              {/* classname */}
               <FormControl
                 style={{
                   margin: '1rem',
                 }}
               >
-                <TextField
-                  id="outlined-basic"
-                  label="Name of Class"
-                  variant="outlined"
+                <InputLabel id="demo-simple-select-label">Class name</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={className}
+                  label="Term"
                   size="small"
-                  style={{
-                    width: '100%',
-                  }}
-                  onChange={(e) => setClassName(e.target.value)}
-                />
+                  onChange={handleChange}
+                >
+                  {classes.map((item) => (
+                    <MenuItem
+                      key={item.className}
+                      value={item.className}
+                    >
+                      {item.className}
+
+                    </MenuItem>
+                  ))}
+
+                </Select>
               </FormControl>
-  
+
               {/* Number of Students  */}
               <FormControl
                 style={{
@@ -122,8 +157,29 @@ import {
                   onChange={(e) => setstreamName(e.target.value)}
                 />
               </FormControl>
-  
+
               {/* Name of class teacher */}
+              <FormControl
+                style={{
+                  margin: '1rem',
+                }}
+              >
+                <InputLabel id="demo-simple-select-label">Select Teacher</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={classTeacher}
+                  label="Term"
+                  size="small"
+                  onChange={handleTeacherChange}
+                >
+                  {teachers.map((item) => (
+                    <MenuItem value={item.id}>{`${item.firstName} ${item.secondName}`}</MenuItem>
+                  ))}
+
+                </Select>
+              </FormControl>
+
               <FormControl
                 style={{
                   margin: '1rem',
@@ -131,16 +187,16 @@ import {
               >
                 <TextField
                   id="outlined-basic"
-                  label="Class teacher name"
+                  label="Number of students"
                   variant="outlined"
                   size="small"
                   style={{
                     width: '100%',
                   }}
-                  onChange={(e) => setClassTeacher(e.target.value)}
+                  onChange={(e) => setNoOfStudents(e.target.value)}
                 />
               </FormControl>
-  
+
               <Button
                 variant="contained"
                 disableElevation
@@ -157,17 +213,17 @@ import {
               >
                 SAVE
               </Button>
-  
+
               {/* have an account */}
-  
+
             </FormGroup>
-  
-          </Paper>
-        </div>
-        <ToastContainer />
-      </Dashboard>
-    );
-  }
-  
-  export default AddStreams;
-  
+
+          </div>
+        </Paper>
+      </div>
+      <ToastContainer />
+    </Dashboard>
+  );
+}
+
+export default AddStreams;

@@ -5,7 +5,7 @@ import Report1 from './screens/Dashboard/Report1';
 import AddStudent from './screens/Student/AddStudent';
 import HomeDashboard from './screens/Dashboard/HomeDashboard';
 import StudentProfile from './screens/Student/StudentProfile';
-import AddClass from './screens/Student/AddClass';
+
 import AddSystem from './screens/Student/AddSystem';
 import AddTeacher from './screens/Teacher/AddTeacher';
 import Teacher from './screens/Teacher';
@@ -16,6 +16,9 @@ import ClassContextProvider from './contexts/className';
 import Report2 from './screens/Dashboard/Report2';
 import ViewSubjects from './screens/Subjects/ViewSubjects';
 import AddSubject from './screens/Subjects/AddSubject';
+import Streams from './screens/Streams/Streams';
+import AddStreams from './screens/Streams/AddStreams';
+import AddClass from './screens/Clas/AddClass';
 
 function App() {
   return (
@@ -36,6 +39,9 @@ function App() {
 
           <Route path="/add-class" element={<AddClass />} />
           <Route path="/classes" element={<Classes />} />
+
+          <Route path="/streams" element={<Streams />} />
+          <Route path="/add-stream" element={<AddStreams />} />
 
           <Route path="/add-system" element={<AddSystem />} />
           <Route path="/add-teacher" element={<AddTeacher />} />

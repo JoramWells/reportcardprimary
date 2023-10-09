@@ -123,8 +123,6 @@ function PrimaryAdd() {
               />
             </FormControl>
 
-            {/* confirm password */}
-
             {/* classname */}
             <FormControl
               style={{
