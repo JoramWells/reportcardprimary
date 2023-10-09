@@ -128,12 +128,12 @@ export default function Dashboard({ children }) {
         </ListItemIcon>
         <ListItemText
           primary={(
-            <div style={{
+            <span style={{
               color: pathname === '/' && '#349EFF',
             }}
             >
               Dashboard
-            </div>
+            </span>
 )}
           onClick={() => navigate('/')}
         />
@@ -154,12 +154,14 @@ export default function Dashboard({ children }) {
         </ListItemIcon>
         <ListItemText
           primary={(
-            <div style={{
+            <p style={{
               color: pathname === '/add-subject' && '#349EFF',
+              padding: '0',
+              margin: '0',
             }}
             >
               Subjects
-            </div>
+            </p>
 )}
           onClick={() => navigate('/')}
         />
@@ -197,12 +199,14 @@ export default function Dashboard({ children }) {
         </ListItemIcon>
         <ListItemText
           primary={(
-            <div style={{
+            <p style={{
               color: pathname === '/streams' && '#349EFF',
+              padding: '0',
+              margin: '0',
             }}
             >
               Streams
-            </div>
+            </p>
 )}
           onClick={() => navigate('/streams')}
         />
@@ -314,8 +318,7 @@ export default function Dashboard({ children }) {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
+      <Box sx={{ display: 'flex', margin: '0', height: '100vh' }}>
         <CssBaseline />
 
         <AppBar

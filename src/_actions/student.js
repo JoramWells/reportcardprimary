@@ -1,6 +1,8 @@
+import { getFromStorage } from '../utils/localStorage';
+
 /* eslint-disable import/prefer-default-export */
 export const studentInitialState = {
-  studentList: [],
+  studentList: getFromStorage('studentData'),
 };
 
 export const studentActions = {

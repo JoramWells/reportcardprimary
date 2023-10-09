@@ -1,13 +1,14 @@
+/* eslint-disable no-unused-vars */
 import {
   FormControl, Button, FormGroup, Paper, TextField, InputLabel, Select, MenuItem,
 } from '@mui/material';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import SaveIcon from '@mui/icons-material/Save';
 import { nanoid } from 'nanoid';
-import { ToastContainer, toast } from 'react-toastify';
 import { getFromStorage } from '../../utils/localStorage';
-import { ClassContext } from '../../contexts/className';
+import { ClassContext } from '../../contexts/classContext';
 import FormHeader from '../../components/FormHeader';
+import { StreamContext } from '../../contexts/streamContext';
 
 const teachers = getFromStorage('Teachers');
 
@@ -17,7 +18,7 @@ function AddStreams() {
   const [classTeacher, setClassTeacher] = useState('');
   const [noOfStudents, setNoOfStudents] = useState('');
 
-  const streamData = getFromStorage('Streams');
+  const { saveStreams } = useContext(StreamContext);
 
   const inputValues = {
     id: nanoid(),
@@ -36,37 +37,8 @@ function AddStreams() {
     setClassTeacher(e.target.value);
   };
 
-  const addStream = (subjects) => {
-    localStorage.setItem('Streams', JSON.stringify(subjects));
-  };
-
-  const getStreamName = (name) => {
-    const results = streamData.filter(
-      (subj) => subj.streamName.toLowerCase().includes(name.toLowerCase()),
-    );
-    if (results.length > 0) return true;
-    return false;
-  };
-
-  const saveData = () => {
-    if (!getStreamName(inputValues.streamName)) {
-      const newSubject = [...streamData, inputValues];
-      // setUserData(newSubject);
-      addStream(newSubject);
-      toast.success('Added New Class');
-    } else {
-      toast.warning('Cannot add two classes');
-    }
-  };
-
   const { classes } = useContext(ClassContext);
 
-  useEffect(() => {
-    const hasUser = localStorage.getItem('Streams');
-    if (hasUser && hasUser.length < 0) {
-      localStorage.setItem('Streams', JSON.stringify(streamData));
-    }
-  }, []);
   return (
     <div
       style={{
@@ -123,7 +95,7 @@ function AddStreams() {
               >
                 {classes.map((item) => (
                   <MenuItem
-                    key={item.className}
+                    key={item.id}
                     value={item.className}
                   >
                     {item.className}
@@ -168,7 +140,7 @@ function AddStreams() {
                 onChange={handleTeacherChange}
               >
                 {teachers.map((item) => (
-                  <MenuItem value={item.id}>{`${item.firstName} ${item.secondName}`}</MenuItem>
+                  <MenuItem key={item.id} value={item.id}>{`${item.firstName} ${item.secondName}`}</MenuItem>
                 ))}
 
               </Select>
@@ -202,7 +174,7 @@ function AddStreams() {
                 marginTop: '2.5rem',
                 // backgroundColor: '#291749',
               }}
-              onClick={() => saveData()}
+              onClick={() => saveStreams(inputValues)}
               endIcon={<SaveIcon />}
             >
               SAVE
@@ -214,7 +186,6 @@ function AddStreams() {
 
         </div>
       </Paper>
-      <ToastContainer />
 
     </div>
   );

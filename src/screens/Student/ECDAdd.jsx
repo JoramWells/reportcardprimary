@@ -4,10 +4,8 @@ import {
 } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
-import Dashboard from '../Dashboard';
 import { StudentContext } from '../../contexts/studentContext';
-import { ClassContext } from '../../contexts/className';
-import TableComponent from '../../components/TableComponent';
+import { ClassContext } from '../../contexts/classContext';
 
 const terms = [
   {

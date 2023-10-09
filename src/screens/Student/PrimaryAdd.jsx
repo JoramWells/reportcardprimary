@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-unused-vars */
 import {
@@ -5,10 +6,8 @@ import {
 } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
-import Dashboard from '../Dashboard';
 import { StudentContext } from '../../contexts/studentContext';
-import { ClassContext } from '../../contexts/className';
-import TableComponent from '../../components/TableComponent';
+import { ClassContext } from '../../contexts/classContext';
 
 function PrimaryAdd() {
   const [firstName, setFirstName] = useState('');
@@ -20,14 +19,13 @@ function PrimaryAdd() {
   const [division, setDivision] = useState('');
   const [profile, setProfile] = useState('');
 
-  // const { saveStudents } = useContext(StudentContext);
   const { classes } = useContext(ClassContext);
 
-  const { createStudent, studentList } = useContext(StudentContext);
+  const { saveStudents } = useContext(StudentContext);
 
   const inputValues = {
     id: nanoid(),
-    firstName,
+    firstName: firstName,
     secondName,
     indexCodeName,
     className: subject,
@@ -40,6 +38,7 @@ function PrimaryAdd() {
 
   const handleChange = (e) => {
     setSubject(e.target.value);
+    console.log(inputValues);
   };
 
   const uploadPhoto = (e) => {
@@ -54,10 +53,6 @@ function PrimaryAdd() {
       reader.readAsDataURL(image);
     }
   };
-
-  useEffect(() => {
-    localStorage.setItem('studentData', JSON.stringify(studentList));
-  }, [createStudent]);
 
   return (
     <div style={{
@@ -104,6 +99,7 @@ function PrimaryAdd() {
                 label="First Name"
                 variant="outlined"
                 size="small"
+                value={firstName}
                 sx={{
                   width: '100%',
                 }}
@@ -122,6 +118,7 @@ function PrimaryAdd() {
                 label="Second Name"
                 variant="outlined"
                 size="small"
+                value={secondName}
                 style={{
                   width: '100%',
                 }}
@@ -167,6 +164,7 @@ function PrimaryAdd() {
                 label="House"
                 variant="outlined"
                 size="small"
+                value={houseName}
                 style={{
                   width: '100%',
                 }}
@@ -184,6 +182,7 @@ function PrimaryAdd() {
                 label="Age"
                 variant="outlined"
                 size="small"
+                value={age}
                 style={{
                   width: '100%',
                 }}
@@ -201,6 +200,7 @@ function PrimaryAdd() {
                 label="Division"
                 variant="outlined"
                 size="small"
+                value={division}
                 style={{
                   width: '100%',
                 }}
@@ -219,7 +219,7 @@ function PrimaryAdd() {
                 padding: '5px',
                 marginTop: '1.5rem',
               }}
-              onClick={() => createStudent(inputValues)}
+              onClick={() => saveStudents(inputValues)}
             >
               SAVE STUDENT
             </Button>

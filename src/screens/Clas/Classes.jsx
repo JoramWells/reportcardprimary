@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import {
   Box, Button, Grid, IconButton, Paper,
@@ -9,21 +9,11 @@ import AddIcon from '@mui/icons-material/Add';
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-import { getFromStorage } from '../../utils/localStorage';
-
-const classes = getFromStorage('Classes');
+import { ClassContext } from '../../contexts/classContext';
 
 function Classes() {
   const navigate = useNavigate();
-  const [studentInfo, setStudentInfo] = useState([]);
-  const [selection, setSelection] = useState([]);
-  const [rows, setRows] = useState(classes);
-
-  const deleteStudent = (id) => {
-    setStudentInfo(studentInfo.filter((student) => student.id !== id));
-    localStorage.setItem('Classes', JSON.stringify(classes.filter((student) => student.id !== id)));
-  // localStorage.todo
-  };
+  const { classes, deleteClass } = useContext(ClassContext);
 
   const columns = [
     {
@@ -54,12 +44,9 @@ function Classes() {
       headerName: 'Action',
       flex: 1,
       sortable: false,
-      renderCell: () => (
+      renderCell: (params) => (
         <IconButton onClick={() => {
-          const selectedIDs = new Set(selection);
-          setRows((r) => r.filter((x) => !selectedIDs.has(x.id)));
-          // console.log(selectedIDs);
-          deleteStudent();
+          deleteClass(params.row.id);
         }}
         >
           <DeleteOutlineIcon />

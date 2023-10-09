@@ -8,17 +8,18 @@ import {
   useState, createContext, useMemo, useReducer,
 } from 'react';
 import PropTypes from 'prop-types';
+import { ToastContainer, toast } from 'react-toastify';
 import { getFromStorage } from '../utils/localStorage';
 import { studentReducer } from '../_reducers/studentReducer';
 import { studentActions, studentInitialState } from '../_actions/student';
 
 export const StudentContext = createContext(null);
 
-const students = getFromStorage('studentData');
+// const students = getFromStorage('studentData');
 const classes = getFromStorage('Classes');
 
 const StudentContextProvider = ({ children }) => {
-  // const [students, setStudents] = useState(getFromStorage('studentData'));
+  const [students, setStudents] = useState(getFromStorage('studentData'));
 
   const [state, dispatch] = useReducer(studentReducer, studentInitialState);
 
@@ -40,6 +41,8 @@ const StudentContextProvider = ({ children }) => {
 
     results = temp[0].noOfStudents - 1;
 
+    // mid/bot/marks average
+
     // delete item
     const newSet = classes.filter((item) => item.className !== data.className);
     const newdict = [...newSet, temp[0]];
@@ -50,34 +53,44 @@ const StudentContextProvider = ({ children }) => {
   const saveStudents = (inputValues) => {
     const newStudent = [...students, inputValues];
     saveStudentToLocal(newStudent);
-
+    setStudents(newStudent);
     // update classes
     updateClassStudents(inputValues);
   };
 
+  const deleteStudent = (id) => {
+    setStudents(students.filter((student) => student.id !== id));
+    localStorage.setItem('studentData', JSON.stringify(students.filter((student) => student.id !== id)));
+    toast.success('A student has been deleted');
+  // localStorage.todo
+  };
+
   const valuex = {
     studentList: state.studentList,
-    createStudent: (student) => {
-      dispatch({
-        type: studentActions.CREATE_STUDENT, student,
-      });
-    },
+
     readStudents: () => {
       dispatch({
         type: studentActions.READ_STUDENT,
       });
     },
+    createStudent: (student) => {
+      dispatch({
+        type: studentActions.CREATE_STUDENT, payload: student,
+      });
+      localStorage.setItem('studentData', JSON.stringify(state.studentList));
+    },
   };
 
   const value = useMemo(() => ({
-    students, saveStudents,
+    students, saveStudents, deleteStudent,
   }));
 
   return (
     <div>
       {' '}
-      <StudentContext.Provider value={valuex}>
+      <StudentContext.Provider value={value}>
         {children}
+        <ToastContainer />
       </StudentContext.Provider>
 
     </div>
