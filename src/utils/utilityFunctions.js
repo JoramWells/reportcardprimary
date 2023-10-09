@@ -48,11 +48,14 @@ export const calculateAverage = (students) => {
   return totalMarks / students.marks.length;
 };
 
+export const sortItems = (object) => object.sort((a, b) => a.marks - b.marks);
+
 export const returnObjectTotal = (students, className) => {
   const results = {};
 
-  return getStudentMarks(students, className).forEach((student) => {
+  const averageMarks = getStudentMarks(students, className).forEach((student) => {
     const average = calculateAverage(student);
     Object.assign(results, { [student.studentName]: average });
   });
+  return sortItems(averageMarks);
 };

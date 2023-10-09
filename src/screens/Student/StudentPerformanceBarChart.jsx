@@ -7,7 +7,7 @@ import { nanoid } from 'nanoid';
 import { useSubjectApi } from '../../hooks/useSubjectApi';
 import { findTerm } from '../../utils/calculate';
 import { getFromStorage } from '../../utils/localStorage';
-import { returnObjectTotal } from '../../utils/utilityFunctions';
+import { returnObjectTotal, sortItems } from '../../utils/utilityFunctions';
 
 function StudentPerformanceBarChart() {
   const { id } = useParams();
@@ -50,7 +50,8 @@ function StudentPerformanceBarChart() {
     return results;
   };
 
-  console.log(returnObjectTotal(arrays, 'Class 4'));
+  const resultList = returnObjectTotal(arrays, 'Class 4');
+  console.log(resultList);
 
   const getStudentMarks = () => {
     // filter to get specific class results
