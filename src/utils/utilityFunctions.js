@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-plusplus */
 /* eslint-disable radix */
 /* eslint-disable no-restricted-syntax */
 import { nanoid } from 'nanoid';
@@ -68,11 +70,13 @@ export const returnObjectTotal = (students, className) => {
   return (results);
 };
 
-export const findStudentPstn = (obj, target) => {
-  const keys = Object.keys(obj);
-  for (let i = 0; i < keys.length; i + 1) {
-    if (keys[i] === target) {
+export const findStudentPstn = (arr, target) => {
+  for (let i = 0; i < arr.length; i++) {
+    const obj = arr[i];
+    const key = Object.keys(obj);
+    if (obj.name.toLowerCase() === target.toLowerCase()) {
       return i;
     }
-  } return -1;
+  }
+  return -1;
 };

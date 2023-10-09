@@ -100,7 +100,7 @@ function StudentProfile() {
   const resultList = returnObjectTotal(arrays, 'Class 4');
   const pstn = sortItems(resultList);
   const studentName = `${results[0].firstName} ${results[0].secondName}`;
-  console.log(findStudentPstn(pstn, studentName), 'student');
+  const studentPstn = findStudentPstn(pstn, studentName);
 
   // const savedSubjects = getStudentSubjectById(id);
   const {
@@ -142,6 +142,9 @@ function StudentProfile() {
             </li>
             <li>
               Number of Students: {results[0].noOfStudents}
+            </li>
+            <li>
+              Position of Student: {studentPstn + 1}
             </li>
           </ul>
         </Paper>

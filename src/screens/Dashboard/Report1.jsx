@@ -68,17 +68,6 @@ function Report1() {
         padding: '10px',
       }}
       >
-        <IconButton
-          onClick={() => navigate('/')}
-          style={{
-            position: 'fixed',
-            top: '0',
-            left: '0',
-          }}
-        >
-          <ArrowBackIcon />
-
-        </IconButton>
 
         {/* LEFT SECTION */}
         {/* <Box>
@@ -126,6 +115,7 @@ function Report1() {
                 secondName={results[0].secondName}
                 age={results[0].age}
                 house={results[0].houseName}
+                img={results[0].profileImg}
               />
 
               <div style={{

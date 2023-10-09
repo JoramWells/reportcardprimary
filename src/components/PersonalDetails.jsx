@@ -5,7 +5,7 @@ import Underline from './Underline';
 // import logo from '../imgs/logo.png';
 
 function PersonalDetails({
-  firstName, secondName, age, house,
+  firstName, secondName, age, house, img,
 }) {
   return (
     <div style={{
@@ -119,6 +119,8 @@ function PersonalDetails({
         border: '1px solid black',
       }}
       />
+      <img src={img} alt={img} />
+
     </div>
   );
 }
@@ -130,6 +132,7 @@ PersonalDetails.defaultProps = {
   secondName: '',
   age: '',
   house: '',
+  img: '',
 
 };
 
@@ -138,5 +141,6 @@ PersonalDetails.propTypes = {
   secondName: PropTypes.string,
   age: PropTypes.string,
   house: PropTypes.string,
+  img: PropTypes.string,
 
 };
