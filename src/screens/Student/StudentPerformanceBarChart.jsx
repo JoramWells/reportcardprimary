@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable no-restricted-syntax */
 import { ResponsiveBar } from '@nivo/bar';
 import { useEffect } from 'react';
@@ -6,6 +7,7 @@ import { nanoid } from 'nanoid';
 import { useSubjectApi } from '../../hooks/useSubjectApi';
 import { findTerm } from '../../utils/calculate';
 import { getFromStorage } from '../../utils/localStorage';
+import { returnObjectTotal } from '../../utils/utilityFunctions';
 
 function StudentPerformanceBarChart() {
   const { id } = useParams();
@@ -37,33 +39,49 @@ function StudentPerformanceBarChart() {
 
   const arrays = getFromStorage('studentSubjects');
 
+  const getClassName = (name) => {
+    let results = [];
+    if (arrays.length > 0) {
+      results = arrays.filter(
+        (subj) => subj.className.toLowerCase().includes(name.toLowerCase()),
+      );
+    }
+
+    return results;
+  };
+
+  console.log(returnObjectTotal(arrays, 'Class 4'));
+
   const getStudentMarks = () => {
-    const map = new Map(arrays.map((
-      { className },
-    ) => [className, {
+    // filter to get specific class results
+    const specificClass = getClassName('Class 4');
+    const map = new Map(specificClass.map((
+      { studentName },
+    ) => [studentName, {
       id: nanoid(),
-      className,
+      studentName,
 
       marks: [],
     }]));
     for (const {
-      className, marks,
-    } of arrays) {
-      map.get(className).marks.push(...[marks].flat());
+      studentName, marks,
+    } of specificClass) {
+      map.get(studentName).marks.push(...[marks].flat());
     }
     return [...map.values()];
   };
 
-  const findSum = (...objects) => {
-    let sum = 0;
-    for (const obj of objects) {
-      for (const value of obj.marks) {
-        sum += value;
-      }
-    }
-    return sum;
+  const calculateAverage = (students) => {
+    const totalMarks = students.marks.reduce((sum, mark) => parseInt(sum) + parseInt(mark));
+    return totalMarks / students.marks.length;
   };
-  console.log(findSum(...getStudentMarks()), 'student-marks');
+  const results = {};
+  getStudentMarks().forEach((student) => {
+    const average = calculateAverage(student);
+    Object.assign(results, { [student.studentName]: average });
+  });
+
+  console.log(results);
 
   return (
     <ResponsiveBar

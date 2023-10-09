@@ -85,7 +85,9 @@ function StudentProfile() {
   const inputValues = {
     id: nanoid(),
     studentId: id,
+    studentName: `${`${results[0].firstName} ${results[0].secondName}`}`,
     term,
+    className: results[0].className,
     subject,
     marks,
     'average-BOT': findTerm(studentSubjectByID, 'BOT'),
@@ -121,7 +123,20 @@ function StudentProfile() {
             }}
           >Performace Analysis
           </Typography>
-          <StudentPerformanceChart />
+          {/* <StudentPerformanceChart /> */}
+          <ul>
+            <li>
+              Class Name: {results[0].className}
+
+            </li>
+            <li>
+              Stream Name: {results[0].streamName}
+
+            </li>
+            <li>
+              Number of Students: {results[0].noOfStudents}
+            </li>
+          </ul>
         </Paper>
       </Grid>
       <Grid item xs={12} md={6} lg={5}>

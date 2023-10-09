@@ -39,8 +39,14 @@ function Students() {
 
     },
     {
-      field: 'category',
+      field: 'type',
       headerName: 'Category',
+      flex: 1,
+
+    },
+    {
+      field: 'streamName',
+      headerName: 'Stream Name',
       flex: 1,
 
     },

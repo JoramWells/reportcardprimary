@@ -8,18 +8,29 @@ import React, { useContext, useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
 import { StudentContext } from '../../contexts/studentContext';
 import { ClassContext } from '../../contexts/classContext';
+import { StreamContext } from '../../contexts/streamContext';
 
 function PrimaryAdd() {
   const [firstName, setFirstName] = useState('');
   const [secondName, setSecondName] = useState('');
   const [indexCodeName, setIndexCodeName] = useState('');
   const [houseName, setHouseName] = useState('');
+  const [streamName, setStreamName] = useState('');
+
   const [age, setAge] = useState('');
   const [subject, setSubject] = useState('');
   const [division, setDivision] = useState('');
   const [profile, setProfile] = useState('');
 
   const { classes } = useContext(ClassContext);
+  const { streams } = useContext(StreamContext);
+
+  const getStreamName = (name) => {
+    const results = streams.filter(
+      (subj) => subj.className.toLowerCase().includes(name.toLowerCase()),
+    );
+    return results;
+  };
 
   const { saveStudents } = useContext(StudentContext);
 
@@ -29,6 +40,7 @@ function PrimaryAdd() {
     secondName,
     indexCodeName,
     className: subject,
+    streamName,
     houseName,
     age,
     division,
@@ -38,7 +50,10 @@ function PrimaryAdd() {
 
   const handleChange = (e) => {
     setSubject(e.target.value);
-    console.log(inputValues);
+  };
+
+  const handleStreamChange = (e) => {
+    setStreamName(e.target.value);
   };
 
   const uploadPhoto = (e) => {
@@ -147,6 +162,34 @@ function PrimaryAdd() {
                     value={item.className}
                   >
                     {item.className}
+
+                  </MenuItem>
+                ))}
+
+              </Select>
+            </FormControl>
+
+            {/* classname */}
+            <FormControl
+              style={{
+                margin: '1rem',
+              }}
+            >
+              <InputLabel id="demo-simple-select-label">Stream name</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={streamName}
+                label="Stream"
+                size="small"
+                onChange={handleStreamChange}
+              >
+                {getStreamName(subject).map((item) => (
+                  <MenuItem
+                    key={item.id}
+                    value={item.streamName}
+                  >
+                    {item.streamName}
 
                   </MenuItem>
                 ))}
