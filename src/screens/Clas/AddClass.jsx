@@ -14,16 +14,12 @@ function AddClass() {
     return JSON.parse(data) || [];
   };
   const [className, setClassName] = useState('');
-  const [noOfStudents, setNoOfStudents] = useState('');
-  const [classTeacher, setClassTeacher] = useState('');
 
   const [userData, setUserData] = useState(getClasses());
 
   const inputValues = {
     id: nanoid(),
     className,
-    noOfStudents,
-    classTeacher,
 
   };
 
@@ -112,42 +108,6 @@ function AddClass() {
                   width: '100%',
                 }}
                 onChange={(e) => setClassName(e.target.value)}
-              />
-            </FormControl>
-
-            {/* Number of Students  */}
-            <FormControl
-              style={{
-                margin: '1rem',
-              }}
-            >
-              <TextField
-                id="outlined-basic"
-                label="Number of Students"
-                variant="outlined"
-                size="small"
-                style={{
-                  width: '100%',
-                }}
-                onChange={(e) => setNoOfStudents(e.target.value)}
-              />
-            </FormControl>
-
-            {/* Name of class teacher */}
-            <FormControl
-              style={{
-                margin: '1rem',
-              }}
-            >
-              <TextField
-                id="outlined-basic"
-                label="Class teacher name"
-                variant="outlined"
-                size="small"
-                style={{
-                  width: '100%',
-                }}
-                onChange={(e) => setClassTeacher(e.target.value)}
               />
             </FormControl>
 
