@@ -7,7 +7,7 @@ import { nanoid } from 'nanoid';
 import { useSubjectApi } from '../../hooks/useSubjectApi';
 import { findTerm } from '../../utils/calculate';
 import { getFromStorage } from '../../utils/localStorage';
-import { returnObjectTotal, sortItems } from '../../utils/utilityFunctions';
+import { returnObjectTotal } from '../../utils/utilityFunctions';
 
 function StudentPerformanceBarChart() {
   const { id } = useParams();
