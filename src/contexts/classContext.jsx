@@ -7,6 +7,7 @@ import {
 } from 'react';
 import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
+import { nanoid } from 'nanoid';
 import { getFromStorage } from '../utils/localStorage';
 import { StreamContext } from './streamContext';
 
@@ -58,21 +59,45 @@ const ClassContextProvider = ({ children }) => {
   const values = useMemo(() => ({
     classes, saveClasses, deleteClass, getStreamDetails,
   }));
-  const returnClasses = (...objects) => {
-    const results = {};
-    for (const obj of objects) {
-      const key = obj.className;
-      if (!results[key]) {
-        console.log(results[key]);
-        results[key] = obj;
-      } else {
-        Object.assign(results[key], obj);
-      }
-    } return Object.values(results);
+  // const returnClasses = (...objects) => {
+  //   const results = {};
+  //   for (const obj of objects) {
+  //     const key = obj.className;
+  //     if (!results[key]) {
+  //       console.log(results[key], 'found');
+  //       results[key] = obj;
+  //     } else {
+  //       Object.assign(results[key], obj);
+  //     }
+  //   } return Object.values(results);
+  // };
+
+  const arrays = getFromStorage('Streams');
+
+  const getClassStreams = () => {
+    const map = new Map(arrays.map((
+      { className, streamName, classTeacher },
+    ) => [className, {
+      id: nanoid(),
+      className,
+      streamName: [],
+      classTeacher: [],
+      noOfStudents: [],
+    }]));
+    for (const {
+      className, streamName, classTeacher, noOfStudents,
+    } of arrays) {
+      map.get(className).streamName.push(...[streamName].flat());
+      map.get(className).classTeacher.push(...[classTeacher].flat());
+      map.get(className).noOfStudents.push(...[noOfStudents].flat());
+    }
+    return [...map.values()];
   };
 
+  // console.log(getClassStreams());
+  localStorage.setItem('UniversalClass', JSON.stringify(getClassStreams()));
   useEffect(() => {
-    console.log(returnClasses(...getFromStorage('Streams')), 'streamx');
+    // console.log(returnClasses(...getFromStorage('Streams')), 'streamx');
   }, []);
   return (
     <ClassContext.Provider value={values}>

@@ -21,44 +21,47 @@ import AddClass from './screens/Clas/AddClass';
 import Classes from './screens/Clas/Classes';
 import Dashboard from './screens/Dashboard';
 import StreamContextProvider from './contexts/streamContext';
+import SubjectContextProvider from './contexts/subjectContext';
 
 function App() {
   return (
     <StudentContextProvider>
       <ClassContextProvider>
         <StreamContextProvider>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Routes>
-
-          <Dashboard>
+          <SubjectContextProvider>
             <Routes>
-              <Route exact path="/" element={<HomeDashboard />} />
-
-              <Route path="/report1/:id?" element={<Report1 />} />
-              <Route path="/report2/:id?" element={<Report2 />} />
-
-              <Route path="/add-student" element={<AddStudent />} />
-              <Route path="/students" element={<Students />} />
-
-              <Route path="/add-subject" element={<AddSubject />} />
-              <Route path="/subjects" element={<ViewSubjects />} />
-
-              <Route path="/add-class" element={<AddClass />} />
-              <Route path="/classes" element={<Classes />} />
-
-              <Route path="/streams" element={<Streams />} />
-              <Route path="/add-stream" element={<AddStreams />} />
-
-              <Route path="/add-system" element={<AddSystem />} />
-              <Route path="/add-teacher" element={<AddTeacher />} />
-              <Route path="/teacher" element={<Teacher />} />
-
-              <Route path="/student-profile/:id?" element={<StudentProfile />} />
-
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
             </Routes>
-          </Dashboard>
+
+            <Dashboard>
+              <Routes>
+                <Route exact path="/" element={<HomeDashboard />} />
+
+                <Route path="/report1/:id?" element={<Report1 />} />
+                <Route path="/report2/:id?" element={<Report2 />} />
+
+                <Route path="/add-student" element={<AddStudent />} />
+                <Route path="/students" element={<Students />} />
+
+                <Route path="/add-subject" element={<AddSubject />} />
+                <Route path="/subjects" element={<ViewSubjects />} />
+
+                <Route path="/add-class" element={<AddClass />} />
+                <Route path="/classes" element={<Classes />} />
+
+                <Route path="/streams" element={<Streams />} />
+                <Route path="/add-stream" element={<AddStreams />} />
+
+                <Route path="/add-system" element={<AddSystem />} />
+                <Route path="/add-teacher" element={<AddTeacher />} />
+                <Route path="/teacher" element={<Teacher />} />
+
+                <Route path="/student-profile/:id?" element={<StudentProfile />} />
+
+              </Routes>
+            </Dashboard>
+          </SubjectContextProvider>
         </StreamContextProvider>
       </ClassContextProvider>
 

@@ -6,7 +6,7 @@ import {
   Box, Button, FormControl, FormGroup, Grid, IconButton, InputLabel,
   MenuItem, Modal, Paper, Select, TextField, Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import { ToastContainer } from 'react-toastify';
@@ -18,6 +18,7 @@ import { useSubjectApi } from '../../hooks/useSubjectApi';
 import StudentPerformanceChart from './StudentPerfomanceChart';
 import StudentPerformanceBarChart from './StudentPerformanceBarChart';
 import { findTerm } from '../../utils/calculate';
+import { SubjectContext } from '../../contexts/subjectContext';
 
 const style = {
   position: 'absolute',
@@ -93,9 +94,12 @@ function StudentProfile() {
   };
 
   // const savedSubjects = getStudentSubjectById(id);
+  const {
+    saveStudentSubject, getStudentExamDetails,
+    studentExamDetail,
+  } = useContext(SubjectContext);
 
   useEffect(() => {
-    // getData();
     getStudentSubjectById(id);
   }, []);
 
@@ -293,7 +297,7 @@ function StudentProfile() {
                       onChange={handleChange}
                     >
                       {subjects.map((item) => (
-                        <MenuItem value={item.subject}>{item.subject}</MenuItem>
+                        <MenuItem key={item.id} value={item.subject}>{item.subject}</MenuItem>
                       ))}
 
                     </Select>
@@ -326,7 +330,7 @@ function StudentProfile() {
                       marginTop: '2rem',
 
                     }}
-                    onClick={() => { saveStudentSubjectByID(inputValues); }}
+                    onClick={() => { saveStudentSubject(inputValues); }}
                   >
                     Save
 
@@ -345,6 +349,7 @@ function StudentProfile() {
 
       <Grid item xs={12}>
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+
           <DataGrid
             columns={columns}
             rows={studentSubjectByID}

@@ -9,6 +9,7 @@ import { getFromStorage } from '../../utils/localStorage';
 import { ClassContext } from '../../contexts/classContext';
 import FormHeader from '../../components/FormHeader';
 import { StreamContext } from '../../contexts/streamContext';
+import { getInitials } from '../../utils/utilityFunctions';
 
 const teachers = getFromStorage('Teachers');
 
@@ -140,7 +141,7 @@ function AddStreams() {
                 onChange={handleTeacherChange}
               >
                 {teachers.map((item) => (
-                  <MenuItem key={item.id} value={item.id}>{`${item.firstName} ${item.secondName}`}</MenuItem>
+                  <MenuItem key={item.id} value={getInitials(`${item.firstName}  ${item.secondName}`)}>{`${item.firstName} ${item.secondName}`}</MenuItem>
                 ))}
 
               </Select>
