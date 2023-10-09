@@ -1,6 +1,7 @@
 /* eslint-disable radix */
 /* eslint-disable no-restricted-syntax */
 import { nanoid } from 'nanoid';
+import { getFromStorage } from './localStorage';
 
 /* eslint-disable import/prefer-default-export */
 export const getInitials = (string) => {
@@ -13,7 +14,9 @@ export const getInitials = (string) => {
   return initials;
 };
 
-const getClassName = (arrays, className) => {
+const arrays = getFromStorage('studentSubjects');
+
+const getClassName = (className) => {
   let results = [];
   if (arrays.length > 0) {
     results = arrays.filter(
@@ -24,9 +27,9 @@ const getClassName = (arrays, className) => {
   return results;
 };
 
-export const getStudentMarks = (studentArray, className) => {
+export const getStudentMarks = (className) => {
   // filter to get specific class results
-  const specificClass = getClassName(studentArray, className);
+  const specificClass = getClassName(className);
   const map = new Map(specificClass.map((
     { studentName },
   ) => [studentName, {
@@ -48,14 +51,28 @@ export const calculateAverage = (students) => {
   return totalMarks / students.marks.length;
 };
 
-export const sortItems = (object) => object.sort((a, b) => a.marks - b.marks);
+export const sortItems = (object) => {
+  const studentArray = Object.entries(object)
+    .map(([name, marks]) => ({ name, marks }));
+  studentArray.sort((a, b) => b.marks - a.marks);
+  return studentArray;
+};
 
 export const returnObjectTotal = (students, className) => {
   const results = {};
 
-  const averageMarks = getStudentMarks(students, className).forEach((student) => {
+  getStudentMarks(className).forEach((student) => {
     const average = calculateAverage(student);
     Object.assign(results, { [student.studentName]: average });
   });
-  return sortItems(averageMarks);
+  return (results);
+};
+
+export const findStudentPstn = (obj, target) => {
+  const keys = Object.keys(obj);
+  for (let i = 0; i < keys.length; i + 1) {
+    if (keys[i] === target) {
+      return i;
+    }
+  } return -1;
 };

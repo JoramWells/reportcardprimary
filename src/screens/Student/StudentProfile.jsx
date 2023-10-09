@@ -15,10 +15,11 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useStudentApi } from '../../hooks/useStudentApi';
 import { getSubjects } from '../../utils/subjectFuncs';
 import { useSubjectApi } from '../../hooks/useSubjectApi';
-import StudentPerformanceChart from './StudentPerfomanceChart';
 import StudentPerformanceBarChart from './StudentPerformanceBarChart';
 import { findTerm } from '../../utils/calculate';
 import { SubjectContext } from '../../contexts/subjectContext';
+import { getFromStorage } from '../../utils/localStorage';
+import { findStudentPstn, returnObjectTotal, sortItems } from '../../utils/utilityFunctions';
 
 const style = {
   position: 'absolute',
@@ -94,6 +95,12 @@ function StudentProfile() {
     ['marks-' + `${term}`]: marks,
 
   };
+
+  const arrays = getFromStorage('studentSubjects');
+  const resultList = returnObjectTotal(arrays, 'Class 4');
+  const pstn = sortItems(resultList);
+  const studentName = `${results[0].firstName} ${results[0].secondName}`;
+  console.log(findStudentPstn(pstn, studentName), 'student');
 
   // const savedSubjects = getStudentSubjectById(id);
   const {

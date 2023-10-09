@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable radix */
 /* eslint-disable no-restricted-syntax */
 import { ResponsiveBar } from '@nivo/bar';
@@ -7,7 +8,7 @@ import { nanoid } from 'nanoid';
 import { useSubjectApi } from '../../hooks/useSubjectApi';
 import { findTerm } from '../../utils/calculate';
 import { getFromStorage } from '../../utils/localStorage';
-import { returnObjectTotal } from '../../utils/utilityFunctions';
+import { returnObjectTotal, sortItems } from '../../utils/utilityFunctions';
 
 function StudentPerformanceBarChart() {
   const { id } = useParams();
@@ -39,50 +40,8 @@ function StudentPerformanceBarChart() {
 
   const arrays = getFromStorage('studentSubjects');
 
-  const getClassName = (name) => {
-    let results = [];
-    if (arrays.length > 0) {
-      results = arrays.filter(
-        (subj) => subj.className.toLowerCase().includes(name.toLowerCase()),
-      );
-    }
-
-    return results;
-  };
-
   const resultList = returnObjectTotal(arrays, 'Class 4');
-  console.log(resultList);
-
-  const getStudentMarks = () => {
-    // filter to get specific class results
-    const specificClass = getClassName('Class 4');
-    const map = new Map(specificClass.map((
-      { studentName },
-    ) => [studentName, {
-      id: nanoid(),
-      studentName,
-
-      marks: [],
-    }]));
-    for (const {
-      studentName, marks,
-    } of specificClass) {
-      map.get(studentName).marks.push(...[marks].flat());
-    }
-    return [...map.values()];
-  };
-
-  const calculateAverage = (students) => {
-    const totalMarks = students.marks.reduce((sum, mark) => parseInt(sum) + parseInt(mark));
-    return totalMarks / students.marks.length;
-  };
-  const results = {};
-  getStudentMarks().forEach((student) => {
-    const average = calculateAverage(student);
-    Object.assign(results, { [student.studentName]: average });
-  });
-
-  console.log(results);
+  console.log(resultList, 'average');
 
   return (
     <ResponsiveBar
