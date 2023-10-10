@@ -233,24 +233,6 @@ function PrimaryAdd() {
               />
             </FormControl>
 
-            <FormControl
-              style={{
-                margin: '1rem',
-              }}
-            >
-              <TextField
-                id="outlined-basic"
-                label="Division"
-                variant="outlined"
-                size="small"
-                value={division}
-                style={{
-                  width: '100%',
-                }}
-                onChange={(e) => setDivision(e.target.value)}
-              />
-            </FormControl>
-
             <input type="file" onChange={(e) => uploadPhoto(e)} />
             <Button
               variant="contained"

@@ -158,6 +158,7 @@ function CustomTable() {
               </td>
               <td>
                 {('marks-BOT' in item) && item['marks-BOT']}
+                {item.marks}
 
               </td>
               <td>
@@ -182,7 +183,8 @@ function CustomTable() {
 
               </td>
               <td>
-                {getInitials(item.classTeacher)}
+                {/* {getInitials(item.classTeacher)} */}
+                {item.classTeacher}
 
               </td>
             </tr>

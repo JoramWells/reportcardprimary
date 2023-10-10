@@ -42,7 +42,7 @@ const StreamContextProvider = ({ children }) => {
 
   const value = useMemo(() => ({
     streams, saveStreams, deleteStream,
-  }), []);
+  }));
   return (
     <StreamContext.Provider value={value}>
       {children}

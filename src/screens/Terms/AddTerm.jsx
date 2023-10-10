@@ -1,86 +1,62 @@
 import {
-  FormControl, Button, FormGroup, Paper, TextField, InputLabel, Select, MenuItem,
+  FormControl, Button, FormGroup, Paper, TextField,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SaveIcon from '@mui/icons-material/Save';
 
 import { ToastContainer, toast } from 'react-toastify';
 import { nanoid } from 'nanoid';
+// import moment from 'moment'
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
+import moment from 'moment/moment';
 import { getFromStorage } from '../../utils/localStorage';
 
 // const electron = window.require('electron');
 // const { ipcRenderer } = electron;
 
 function AddTerms() {
-  const getSubjects = () => {
-    const data = localStorage.getItem('subjects');
-    return JSON.parse(data) || [];
-  };
   const [term, setTerm] = useState('');
-  const [teacher, setTeacher] = useState('');
-  const [system, setSystem] = useState('');
 
-  const [userData, setUserData] = useState(getSubjects());
+  const [userData, setUserData] = useState(getFromStorage('Terms'));
 
-  const [teachers] = useState(getFromStorage('Teachers'));
+  const [startDate, setStartDate] = useState(dayjs('2022-04-19'));
+  const [endDate, setEndDate] = useState(dayjs('2022-04-17'));
 
-  const handleChange = (e) => {
-    setTeacher(e.target.value);
-  };
   const inputValues = {
     id: nanoid(),
-    term,
-    teacher,
-    system,
+    termName: term,
+    startDate: moment(startDate).format('MM/DD/YYYY'),
+    endDate: moment(endDate).format('MM/DD/YYYY'),
 
   };
 
-  const handleSystemChange = (e) => {
-    setSystem(e.target.value);
+  const saveTerm = (subjects) => {
+    localStorage.setItem('Terms', JSON.stringify(subjects));
   };
 
-  // const getSubjects = () => {
-  //   const temp = localStorage.getItem('todos');
-  //   const savedUsers = JSON.parse(temp);
-  //   return savedUsers || [];
-  // };
-
-  // const [subjects, setSubjects] = useState(getSubjects());
-
-  const saveSubject = (subjects) => {
-    localStorage.setItem('subjects', JSON.stringify(subjects));
-  };
-
-  const getSubjectName = (name) => {
+  const getTermName = (name) => {
     const results = userData.filter(
-      (subj) => subj.subject.toLowerCase().includes(name.toLowerCase()),
+      (subj) => subj.termName.toLowerCase().includes(name.toLowerCase()),
     );
-    console.log(results.length);
     if (results.length > 0) return true;
     return false;
   };
 
   const saveData = () => {
-    // if (subject.length === 0) {
-    //   toast.warning('Enter subject name');
-    // }
-    if (!getSubjectName(inputValues.subject)) {
-      const newSubject = [...userData, inputValues];
-      setUserData(newSubject);
-      saveSubject(newSubject);
-      toast.success('Added subject Succesfully');
+    if (!getTermName(inputValues.termName)) {
+      const newTerm = [...userData, inputValues];
+      setUserData(newTerm);
+      saveTerm(newTerm);
+      toast.success('Added term Succesfully');
       // ipcRenderer.send('asynchronous', 'ping');
     } else {
-      toast.warning(`${term} already added!!`);
+      toast.warning(`${term} already added!!!`);
     }
   };
 
-  useEffect(() => {
-    const hasUser = localStorage.getItem('subjects');
-    if (hasUser && hasUser.length < 0) {
-      localStorage.setItem('subjects', JSON.stringify(userData));
-    }
-  }, []);
   return (
     <div style={{
       display: 'flex',
@@ -117,7 +93,7 @@ function AddTerms() {
               id="outlined-basic"
               label="Term Name"
               variant="outlined"
-              size="small"
+              size="medium"
               style={{
                 width: '100%',
               }}
@@ -125,44 +101,41 @@ function AddTerms() {
               onChange={(e) => setTerm(e.target.value)}
             />
           </FormControl>
-          <FormControl
-            style={{
-              margin: '1rem',
-            }}
+          <FormControl style={{
+            margin: '1rem',
+          }}
           >
-            <InputLabel id="demo-simple-select-label">Select System</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={system}
-              label="Term"
-              size="small"
-              onChange={handleSystemChange}
-            >
-              <MenuItem value="ECD">ECD</MenuItem>
-              <MenuItem value="Primary">Primary</MenuItem>
 
-            </Select>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={['DatePicker']}>
+                <DatePicker
+                  label="Start Date"
+                  value={startDate}
+                  sx={{
+                    width: '100%',
+                  }}
+                  onChange={(newValue) => setStartDate(newValue)}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
           </FormControl>
-          <FormControl
-            style={{
-              margin: '1rem',
-            }}
-          >
-            <InputLabel id="demo-simple-select-label">Select Teacher</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={teacher}
-              label="Term"
-              size="small"
-              onChange={handleChange}
-            >
-              {teachers.map((item) => (
-                <MenuItem value={`${item.firstName} ${item.secondName}`}>{`${item.firstName} ${item.secondName}`}</MenuItem>
-              ))}
 
-            </Select>
+          <FormControl style={{
+            margin: '1rem',
+          }}
+          >
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={['DatePicker']}>
+                <DatePicker
+                  label="End Date"
+                  value={endDate}
+                  sx={{
+                    width: '100%',
+                  }}
+                  onChange={(newValue) => setEndDate(newValue)}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
           </FormControl>
 
           <Button
@@ -173,14 +146,14 @@ function AddTerms() {
               margin: 'auto',
               // display: 'block',
               padding: '8px',
-              marginTop: '2.5rem',
+              marginTop: '2rem',
               // backgroundColor: '#291749',
               fontWeight: 'bold',
             }}
             onClick={() => saveData()}
             endIcon={<SaveIcon />}
           >
-            ADD SUBJECT
+            ADD TERM
           </Button>
 
           {/* have an account */}

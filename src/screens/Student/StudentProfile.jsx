@@ -76,6 +76,13 @@ function StudentProfile() {
       headerName: 'Term',
       flex: 1,
     },
+
+    {
+      field: 'category',
+      headerName: 'Exam Category',
+      flex: 1,
+
+    },
     {
       field: 'subject',
       headerName: 'Subject',
@@ -103,8 +110,14 @@ function StudentProfile() {
 
   ];
 
+  const [category, setCategory] = useState('');
+
   const handleTermChange = (e) => {
     setTerm(e.target.value);
+  };
+
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
   };
 
   const inputValues = {
@@ -112,6 +125,7 @@ function StudentProfile() {
     studentId: id,
     studentName: `${`${results[0].firstName} ${results[0].secondName}`}`,
     term,
+    category,
     className: results[0].className,
     subject,
     marks,
@@ -140,6 +154,29 @@ function StudentProfile() {
 
   return (
     <>
+
+      <Grid
+        item
+        xs={12}
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+        }}
+      >
+        <Button
+          sx={{
+            // backgroundColor: '#11C870',
+            marginRight: '1rem',
+          }}
+          variant="success"
+          onClick={() => getStudentSubjectById(id)}
+        >REFRESH
+        </Button>
+        <Button variant="outlined" onClick={handleOpen} disableElevation>Add Exams</Button>
+
+      </Grid>
+      <ToastContainer />
       <Grid item xs={12} md={6} lg={4}>
         <Paper
           sx={{
@@ -271,12 +308,14 @@ function StudentProfile() {
             marginTop: '1rem',
           }}
           >
-            <Button onClick={handleOpen} disableElevation>Add Exams</Button>
             <Modal
               open={open}
               onClose={handleClose}
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
+              style={{
+                height: '800px',
+              }}
             >
               <Box sx={style}>
                 <FormGroup
@@ -323,15 +362,35 @@ function StudentProfile() {
                           size="small"
                           onChange={handleTermChange}
                         >
-                          <MenuItem value="BOT">BOT</MenuItem>
-                          <MenuItem value="MID">MID</MenuItem>
-                          <MenuItem value="EOT">EOT</MenuItem>
+                          {getFromStorage('Terms').map((item) => (
+                            <MenuItem key={item.id} value={item.termName}>{item.termName}</MenuItem>
+                          ))}
 
                         </Select>
                       </FormControl>
                     )}
 
-                  {/* term */}
+                  {/* catergory */}
+                  <FormControl
+                    style={{
+                      margin: '1rem',
+                    }}
+                  >
+                    <InputLabel id="demo-simple-select-label">Select Exam Category</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={category}
+                      label="Term"
+                      size="small"
+                      onChange={handleCategoryChange}
+                    >
+                      <MenuItem value="BOT">BOT</MenuItem>
+                      <MenuItem value="MID">MID</MenuItem>
+                      <MenuItem value="EOT">EOT</MenuItem>
+
+                    </Select>
+                  </FormControl>
                   {/* subject */}
                   <FormControl
                     style={{

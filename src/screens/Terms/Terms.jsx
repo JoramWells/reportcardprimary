@@ -4,30 +4,27 @@ import { useState } from 'react';
 
 import {
   Button,
-  Grid, IconButton, Paper, Tooltip,
+  Grid, Paper,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { DataGrid } from '@mui/x-data-grid';
 import { getFromStorage } from '../../utils/localStorage';
-import { useLocalStorageFilterApi } from '../../hooks/useLocalStorageFilterApi';
 
 const columns = [
   {
-    field: 'subject',
-    headerName: 'Subject Name',
+    field: 'termName',
+    headerName: 'Term Name',
     flex: 1,
   },
   {
-    field: 'teacher',
-    headerName: 'Subject Teacher',
+    field: 'startDate',
+    headerName: 'Start Date',
     flex: 1,
 
   },
   {
-    field: 'classes',
-    headerName: 'Taught In',
+    field: 'endDate',
+    headerName: 'End Date',
     flex: 1,
 
   },

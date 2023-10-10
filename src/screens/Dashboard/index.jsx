@@ -1,19 +1,10 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
-import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
-import Box from '@mui/material/Box';
 import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -27,11 +18,13 @@ import AbcIcon from '@mui/icons-material/Abc';
 import BoyIcon from '@mui/icons-material/Boy';
 import {
   Collapse,
-  ListItemButton, ListItemIcon, ListItemText, ListSubheader,
+  ListItemButton, ListItemIcon, ListItemText, ListSubheader, Box,
+  Toolbar, List, Typography, Badge, Container, Grid,
 } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import { ExpandLess, ExpandMore, StarBorder } from '@material-ui/icons';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import { useState } from 'react';
 
 const drawerWidth = 240;
 
@@ -86,13 +79,10 @@ export default function Dashboard({ children }) {
   const location = useLocation();
   const { pathname } = location;
 
-  const [open, setOpen] = React.useState(true);
-  const [menuOpen, setMenuOpen] = React.useState(false);
+  const [open, setOpen] = useState(true);
 
-  const [studentOpen, setStudentOpen] = React.useState(false);
-  const [systemOpen, setSystemOpen] = React.useState(false);
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [studentOpen, setStudentOpen] = useState(false);
+  const [systemOpen, setSystemOpen] = useState(false);
 
   const navigate = useNavigate();
   const toggleDrawer = () => {

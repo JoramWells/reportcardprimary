@@ -95,7 +95,7 @@ const ClassContextProvider = ({ children }) => {
   };
 
   // console.log(getClassStreams());
-  localStorage.setItem('UniversalClass', JSON.stringify(getClassStreams()));
+  localStorage.setItem('Classes', JSON.stringify(getClassStreams()));
   useEffect(() => {
     // console.log(returnClasses(...getFromStorage('Streams')), 'streamx');
   }, []);
