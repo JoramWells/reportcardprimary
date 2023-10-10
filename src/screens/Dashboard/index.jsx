@@ -21,7 +21,6 @@ import PropTypes from 'prop-types';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 
 import LayersIcon from '@mui/icons-material/Layers';
-import AirIcon from '@mui/icons-material/Air';
 import SchoolIcon from '@mui/icons-material/School';
 import BorderOuterIcon from '@mui/icons-material/BorderOuter';
 import AbcIcon from '@mui/icons-material/Abc';
@@ -99,13 +98,6 @@ export default function Dashboard({ children }) {
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuOpen = () => {
-    setMenuOpen(!menuOpen);
-  };
 
   const handleSystemOpen = () => {
     setSystemOpen(!systemOpen);
@@ -113,10 +105,6 @@ export default function Dashboard({ children }) {
 
   const handleStudentOpen = () => {
     setStudentOpen(!studentOpen);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   // main list
@@ -248,38 +236,13 @@ export default function Dashboard({ children }) {
       </Collapse>
 
       {/* Streams */}
-      <ListItemButton onClick={handleMenuOpen}>
+      <ListItemButton onClick={() => navigate('/terms')}>
         <ListItemIcon>
           <AbcIcon />
         </ListItemIcon>
         <ListItemText primary="Terms" />
-        {menuOpen ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
-      <Collapse in={menuOpen} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton sx={{
-            pl: 4, pt: 0, pb: 0, fontSize: '10px',
-          }}
-          >
-            <ListItemIcon />
-            <ListItemText
-              primary="BOT"
-              sx={{
-                fontSize: '10px',
-                fontWeight: 'bold',
-              }}
-            />
-          </ListItemButton>
-          <ListItemButton sx={{ pl: 4, pt: 0, pb: 0 }}>
-            <ListItemIcon />
-            <ListItemText primary="MID" />
-          </ListItemButton>
-          <ListItemButton sx={{ pl: 4, pt: 0, pb: 0 }}>
-            <ListItemIcon />
-            <ListItemText primary="EOT" />
-          </ListItemButton>
-        </List>
-      </Collapse>
+
       <ListItemButton selected={pathname === '/add-teacher' || pathname === '/teacher'} onClick={() => navigate('/teacher')}>
         <ListItemIcon>
           <BoyIcon />

@@ -3,7 +3,7 @@
 import { useContext, useState } from 'react';
 
 import {
-  Box, Button, Grid, IconButton, Paper,
+  Box, Button, Grid, IconButton, Paper, Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
@@ -142,6 +142,17 @@ function Classes() {
 
         </Button>
       </Box>
+      <Grid item xs={12}>
+        <Box style={{
+          borderRadius: '15px',
+          height: '150px',
+          backgroundColor: '#E3F2FF',
+          padding: '20px',
+        }}
+        >
+          <Typography>You cannot view a Class Unless You and a Stream</Typography>
+        </Box>
+      </Grid>
       <Grid item xs={12}>
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
           <DataGrid

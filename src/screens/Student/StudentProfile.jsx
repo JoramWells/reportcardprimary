@@ -9,7 +9,7 @@ import {
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { nanoid } from 'nanoid';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import PrintIcon from '@mui/icons-material/Print';
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -23,6 +23,7 @@ import { SubjectContext } from '../../contexts/subjectContext';
 import { getFromStorage } from '../../utils/localStorage';
 import { findStudentPstn, returnObjectTotal, sortItems } from '../../utils/utilityFunctions';
 import usePositionApi from '../../hooks/usePositionApi';
+import { ExamContext } from '../../contexts/examContext';
 
 const style = {
   position: 'absolute',
@@ -36,39 +37,6 @@ const style = {
   borderRadius: '10px',
   p: 4,
 };
-
-const columns = [
-  {
-    field: 'term',
-    headerName: 'Term',
-    flex: 1,
-  },
-  {
-    field: 'subject',
-    headerName: 'Subject',
-    flex: 1,
-
-  },
-  {
-    field: 'marks',
-    headerName: 'Marks',
-    flex: 1,
-
-  },
-  {
-    field: 'action',
-    headerName: 'Action',
-    flex: 1,
-    sortable: false,
-    renderCell: (params) => (
-      <IconButton>
-        <DeleteOutlineIcon />
-      </IconButton>
-    ),
-
-  },
-
-];
 
 function StudentProfile() {
   const [subjects, setSubjects] = useState(getSubjects());
@@ -87,16 +55,57 @@ function StudentProfile() {
     setSubject(e.target.value);
   };
 
-  const handleTermChange = (e) => {
-    setTerm(e.target.value);
-  };
-
-  const { id } = useParams();
-
   const {
     saveStudentSubjectByID, studentSubjectByID,
     getStudentSubjectById,
   } = useSubjectApi();
+
+  const { id } = useParams();
+
+  const [exams, setExams] = useState(studentSubjectByID);
+
+  const deleteStudentExam = (studentId) => {
+    localStorage.setItem('studentSubjects', JSON.stringify(studentSubjectByID.filter((student) => student.id !== studentId)));
+    toast.success('Exam has been deletd!!');
+    setExams(studentSubjectByID.filter((student) => student.id !== studentId));
+  };
+
+  const columns = [
+    {
+      field: 'term',
+      headerName: 'Term',
+      flex: 1,
+    },
+    {
+      field: 'subject',
+      headerName: 'Subject',
+      flex: 1,
+
+    },
+    {
+      field: 'marks',
+      headerName: 'Marks',
+      flex: 1,
+
+    },
+    {
+      field: 'action',
+      headerName: 'Action',
+      flex: 1,
+      sortable: false,
+      renderCell: (params) => (
+        <IconButton onClick={() => deleteStudentExam(params.row.id)}>
+          <DeleteOutlineIcon />
+        </IconButton>
+      ),
+
+    },
+
+  ];
+
+  const handleTermChange = (e) => {
+    setTerm(e.target.value);
+  };
 
   const inputValues = {
     id: nanoid(),
@@ -127,7 +136,7 @@ function StudentProfile() {
 
   useEffect(() => {
     getStudentSubjectById(id);
-  }, []);
+  }, [exams]);
 
   return (
     <>
@@ -394,7 +403,7 @@ function StudentProfile() {
 
           <DataGrid
             columns={columns}
-            rows={studentSubjectByID}
+            rows={exams.length > 0 ? exams : studentSubjectByID}
             disableRowSelectionOnClick
             sx={{
               '.MuiDataGrid-columnHeaderTitle': {

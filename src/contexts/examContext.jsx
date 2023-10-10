@@ -1,7 +1,7 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/function-component-definition */
 import {
-  createContext, useContext, useMemo, useState,
+  createContext, useMemo, useState,
 } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
@@ -10,8 +10,6 @@ import { toast } from 'react-toastify';
 export const ExamContext = createContext();
 
 const ExamContextProvider = ({ children }) => {
-  const { id } = useContext(ExamContext);
-
   const [exams, setExams] = useState([]);
 
   const deleteStudentExam = (arr, studentId) => {
@@ -21,7 +19,7 @@ const ExamContextProvider = ({ children }) => {
   };
 
   const value = useMemo(() => ({
-    deleteStudentExam, exams, id,
+    deleteStudentExam, exams,
   }));
   return (
     <ExamContext.Provider value={value}>

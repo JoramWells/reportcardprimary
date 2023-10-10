@@ -20,6 +20,8 @@ import Dashboard from './screens/Dashboard';
 import StreamContextProvider from './contexts/streamContext';
 import SubjectContextProvider from './contexts/subjectContext';
 import StudentRoutes from './StudentRoutes';
+import AddTerms from './screens/Terms/AddTerm';
+import Terms from './screens/Terms/Terms';
 
 function App() {
   return (
@@ -44,6 +46,9 @@ function App() {
 
                 <Route path="/add-class" element={<AddClass />} />
                 <Route path="/classes" element={<Classes />} />
+
+                <Route path="/add-term" element={<AddTerms />} />
+                <Route path="/terms" element={<Terms />} />
 
                 <Route path="/streams" element={<Streams />} />
                 <Route path="/add-stream" element={<AddStreams />} />
