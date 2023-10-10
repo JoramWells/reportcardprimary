@@ -12,6 +12,8 @@ import { nanoid } from 'nanoid';
 import { ToastContainer } from 'react-toastify';
 import PrintIcon from '@mui/icons-material/Print';
 import { DataGrid } from '@mui/x-data-grid';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+
 import { useStudentApi } from '../../hooks/useStudentApi';
 import { getSubjects } from '../../utils/subjectFuncs';
 import { useSubjectApi } from '../../hooks/useSubjectApi';
@@ -20,6 +22,7 @@ import { findTerm } from '../../utils/calculate';
 import { SubjectContext } from '../../contexts/subjectContext';
 import { getFromStorage } from '../../utils/localStorage';
 import { findStudentPstn, returnObjectTotal, sortItems } from '../../utils/utilityFunctions';
+import usePositionApi from '../../hooks/usePositionApi';
 
 const style = {
   position: 'absolute',
@@ -50,6 +53,18 @@ const columns = [
     field: 'marks',
     headerName: 'Marks',
     flex: 1,
+
+  },
+  {
+    field: 'action',
+    headerName: 'Action',
+    flex: 1,
+    sortable: false,
+    renderCell: (params) => (
+      <IconButton>
+        <DeleteOutlineIcon />
+      </IconButton>
+    ),
 
   },
 
@@ -97,10 +112,12 @@ function StudentProfile() {
   };
 
   const arrays = getFromStorage('studentSubjects');
-  const resultList = returnObjectTotal(arrays, 'Class 4');
-  const pstn = sortItems(resultList);
+  // const resultList = returnObjectTotal(arrays, 'Class 4');
+  // const pstn = sortItems(resultList);
   const studentName = `${results[0].firstName} ${results[0].secondName}`;
-  const studentPstn = findStudentPstn(pstn, studentName);
+  // const studentPstn = findStudentPstn(pstn, studentName);
+  const { getStudentPosition } = usePositionApi();
+  const studentPstn = getStudentPosition(studentName);
 
   // const savedSubjects = getStudentSubjectById(id);
   const {

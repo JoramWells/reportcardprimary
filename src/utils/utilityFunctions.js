@@ -16,6 +16,11 @@ export const getInitials = (string) => {
   return initials;
 };
 
+// filter data
+export const filterData = (arr, searchTerm, key) => arr.filter(
+  (item) => item[key].toLowerCase().includes(searchTerm.toLowerCase()),
+);
+
 const arrays = getFromStorage('studentSubjects');
 
 const getClassName = (className) => {

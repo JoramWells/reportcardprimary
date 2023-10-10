@@ -10,6 +10,7 @@ import { useSubjectApi } from '../hooks/useSubjectApi';
 import '../css/CustomTable.module.css';
 import { useCalcApi } from '../hooks/useCalcApi';
 import { calculateTotalMarks, findTerm } from '../utils/calculate';
+import { getInitials } from '../utils/utilityFunctions';
 
 // const styles = {
 //   table, th, td {
@@ -29,8 +30,12 @@ function CustomTable() {
 
   const [sums, setSums] = useState(0);
 
+  // const subjectResults = savedSubjects.filter(
+  //   (subject) => subject.studentId.toLowerCase().includes(studentId.toLowerCase()),
+
   useEffect(() => {
     getStudentSubjectById(id);
+    console.log(datax, 'datax');
   }, []);
 
   return (
@@ -177,7 +182,8 @@ function CustomTable() {
 
               </td>
               <td>
-                {' '}
+                {getInitials(item.classTeacher)}
+
               </td>
             </tr>
           ))}

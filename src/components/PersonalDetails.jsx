@@ -5,7 +5,7 @@ import Underline from './Underline';
 // import logo from '../imgs/logo.png';
 
 function PersonalDetails({
-  firstName, secondName, age, house, img,
+  firstName, secondName, age, house, img, className, noOfStudents, position,
 }) {
   return (
     <div style={{
@@ -32,8 +32,18 @@ function PersonalDetails({
           <Underline />
 
           <Badge text="class" />
+          <div style={{
+            display: 'flex',
+            fontWeight: 'bold',
+            borderBottom: '1px solid black',
+            width: '35%',
+            fontSize: '14px',
+            textTransform: 'uppercase',
+          }}
+          >
+            {className}
+          </div>
 
-          <Underline />
           <Badge text="Position" />
           <Badge text="Out of" />
 
@@ -57,8 +67,29 @@ function PersonalDetails({
             {firstName} {secondName}
           </div>
           {/* <Underline width="55.4%" /> */}
-          <Underline width="14%" />
-          <Underline width="14%" />
+          {/* position */}
+          <div style={{
+            display: 'flex',
+            fontWeight: 'bold',
+            borderBottom: '1px solid black',
+            width: '15%',
+            fontSize: '14px',
+            textTransform: 'uppercase',
+          }}
+          >
+            {position}
+          </div>
+          <div style={{
+            display: 'flex',
+            fontWeight: 'bold',
+            borderBottom: '1px solid black',
+            width: '15%',
+            fontSize: '14px',
+            textTransform: 'uppercase',
+          }}
+          >
+            {noOfStudents}
+          </div>
 
         </div>
         {/* personal details */}
@@ -113,13 +144,16 @@ function PersonalDetails({
         </div>
 
       </div>
-      <div style={{
-        width: '100px',
-        height: '100px',
-        border: '1px solid black',
-      }}
+
+      <img
+        src={img}
+        alt={img}
+        style={{
+          width: '100px',
+          height: '100px',
+          objectFit: 'cover',
+        }}
       />
-      <img src={img} alt={img} />
 
     </div>
   );
@@ -133,6 +167,9 @@ PersonalDetails.defaultProps = {
   age: '',
   house: '',
   img: '',
+  className: '',
+  noOfStudents: '',
+  position: 0,
 
 };
 
@@ -142,5 +179,8 @@ PersonalDetails.propTypes = {
   age: PropTypes.string,
   house: PropTypes.string,
   img: PropTypes.string,
+  className: PropTypes.string,
+  noOfStudents: PropTypes.string,
+  position: PropTypes.number,
 
 };

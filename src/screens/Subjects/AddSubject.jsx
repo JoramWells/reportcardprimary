@@ -159,7 +159,7 @@ function AddSubject() {
               onChange={handleChange}
             >
               {teachers.map((item) => (
-                <MenuItem value={item.id}>{`${item.firstName} ${item.secondName}`}</MenuItem>
+                <MenuItem value={`${item.firstName} ${item.secondName}`}>{`${item.firstName} ${item.secondName}`}</MenuItem>
               ))}
 
             </Select>

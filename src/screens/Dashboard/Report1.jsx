@@ -13,6 +13,9 @@ import PersonalDetails from '../../components/PersonalDetails';
 import CustomTable from '../../components/CustomTable';
 import Badge from '../../components/Badge';
 import Underline from '../../components/Underline';
+import { getFromStorage } from '../../utils/localStorage';
+import { filterData } from '../../utils/utilityFunctions';
+import usePositionApi from '../../hooks/usePositionApi';
 
 function Report1() {
   const [loader, setLoader] = useState(false);
@@ -50,6 +53,14 @@ function Report1() {
     );
     setUserResults(userResults);
   };
+
+  const streams = getFromStorage('Streams');
+  const noOfStudents = filterData(streams, results[0].streamName, 'streamName');
+  const { getStudentPosition } = usePositionApi();
+  const studentName = `${results[0].firstName} ${results[0].secondName}`;
+
+  const position = getStudentPosition(studentName);
+
   useEffect(() => {
     getStudentId(id);
   }, [id]);
@@ -69,30 +80,6 @@ function Report1() {
       }}
       >
 
-        {/* LEFT SECTION */}
-        {/* <Box>
-        <FormGroup >
-          <div>
-            <InputLabel htmlFor="my-input">First Name</InputLabel>
-            <input placeholder='Enter name'
-              onChange={(e) => setFirstName(e.target.value)} />
-          </div>
-
-          <div style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            flexDirection: 'column'
-          }}
-          >
-            <InputLabel htmlFor="my-input">First Name</InputLabel>
-
-            <input placeholder='Enter second name'
-              onChange={(e) => setSecondName(e.target.value)} />
-          </div>
-        </FormGroup >
-      </Box> */}
-
-        {/* report section */}
         <Paper>
           <div
             style={{
@@ -115,7 +102,11 @@ function Report1() {
                 secondName={results[0].secondName}
                 age={results[0].age}
                 house={results[0].houseName}
-                img={results[0].profileImg}
+                img={results[0].profile}
+                className={results[0].className}
+                noOfStudents={noOfStudents[0].noOfStudents}
+                position={position}
+
               />
 
               <div style={{
