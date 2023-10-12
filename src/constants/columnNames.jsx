@@ -3,12 +3,26 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { IconButton } from '@mui/material';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { StudentContext } from '../contexts/studentContext';
+import { useDispatch } from 'react-redux';
+
 import { StreamContext } from '../contexts/streamContext';
+import { deleteStudent } from '../_features/student/studentSlice';
+import { deleteExam } from '../_features/exams/examSlice';
 
 const useColumnNames = () => {
-  const { deleteStudent } = useContext(StudentContext);
+  // const { deleteStudent } = useContext(StudentContext);
   const { deleteStream } = useContext(StreamContext);
+
+  const dispatch = useDispatch();
+  const deleteStudentRedx = (id) => {
+    dispatch(
+      deleteStudent(id),
+    );
+  };
+
+  const deleteStudentExam = (id) => {
+    dispatch(deleteExam(id));
+  };
 
   // student column
   const studentColumn = [
@@ -61,7 +75,7 @@ const useColumnNames = () => {
       flex: 1,
       sortable: false,
       renderCell: (params) => (
-        <IconButton onClick={() => deleteStudent(params.row.id)}>
+        <IconButton onClick={() => deleteStudentRedx(params.row.id)}>
           <DeleteOutlineIcon />
         </IconButton>
       ),
@@ -108,7 +122,49 @@ const useColumnNames = () => {
 
     },
   ];
-  return { studentColumn, streamColumn };
+
+  // student-exams columns
+  const examColumn = [
+    {
+      field: 'term',
+      headerName: 'Term',
+      flex: 1,
+    },
+
+    {
+      field: 'category',
+      headerName: 'Exam Category',
+      flex: 1,
+
+    },
+    {
+      field: 'subject',
+      headerName: 'Subject',
+      flex: 1,
+
+    },
+    {
+      field: 'marks',
+      headerName: 'Marks',
+      flex: 1,
+
+    },
+    {
+      field: 'action',
+      headerName: 'Action',
+      flex: 1,
+      sortable: false,
+      renderCell: (params) => (
+        <IconButton onClick={() => deleteStudentExam(params.row.id)}>
+          <DeleteOutlineIcon />
+        </IconButton>
+      ),
+
+    },
+
+  ];
+
+  return { studentColumn, streamColumn, examColumn };
 };
 
 export default useColumnNames;

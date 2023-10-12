@@ -3,16 +3,13 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
-// import { useContext } from 'react';
 
 import { useSelector } from 'react-redux';
-// import { StudentContext } from '../../contexts/studentContext';
 import useColumnNames from '../../constants/columnNames';
 
 function Students() {
   const navigate = useNavigate();
   const student2 = useSelector((state) => state.students);
-  // const { students } = useContext(StudentContext);
 
   const { studentColumn } = useColumnNames();
 

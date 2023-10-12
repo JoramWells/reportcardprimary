@@ -25,11 +25,16 @@ const studentSlice = createSlice({
         };
       },
     },
+    deleteStudent: (state, { payload: index }) => {
+      state.splice(index, 1);
+      localStorage.setItem('studentData', JSON.stringify(initialState.filter((student) => student.id !== index)));
+      toast.success('Succesfully deleted!!');
+    },
   },
 });
 
 export const selectAllStudents = (state) => state.student;
 
-export const { addStudent } = studentSlice.actions;
+export const { addStudent, deleteStudent } = studentSlice.actions;
 
 export default studentSlice.reducer;

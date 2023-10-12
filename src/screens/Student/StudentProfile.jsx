@@ -1,29 +1,28 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-useless-concat */
 /* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable no-unused-vars */
 import {
   Box, Button, FormControl, FormGroup, Grid, IconButton, InputLabel,
   MenuItem, Modal, Paper, Select, TextField, Typography,
 } from '@mui/material';
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import { ToastContainer, toast } from 'react-toastify';
 import PrintIcon from '@mui/icons-material/Print';
 import { DataGrid } from '@mui/x-data-grid';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
+import { useDispatch, useSelector } from 'react-redux';
 import { useStudentApi } from '../../hooks/useStudentApi';
 import { getSubjects } from '../../utils/subjectFuncs';
 import { useSubjectApi } from '../../hooks/useSubjectApi';
 import StudentPerformanceBarChart from './StudentPerformanceBarChart';
 import { findTerm } from '../../utils/calculate';
-import { SubjectContext } from '../../contexts/subjectContext';
 import { getFromStorage } from '../../utils/localStorage';
-import { findStudentPstn, returnObjectTotal, sortItems } from '../../utils/utilityFunctions';
 import usePositionApi from '../../hooks/usePositionApi';
-import { ExamContext } from '../../contexts/examContext';
+import { addExam } from '../../_features/exams/examSlice';
+import useColumnNames from '../../constants/columnNames';
 
 const style = {
   position: 'absolute',
@@ -56,59 +55,26 @@ function StudentProfile() {
   };
 
   const {
-    saveStudentSubjectByID, studentSubjectByID,
+    studentSubjectByID,
     getStudentSubjectById,
   } = useSubjectApi();
 
   const { id } = useParams();
+  const exam2 = useSelector((state) => state.exams);
 
-  const [exams, setExams] = useState(studentSubjectByID);
+  const [exams, setExams] = useState(
+    exam2.filter(
+      (item) => item.studentId.toLowerCase().includes(id.toLowerCase()),
+    ),
+  );
+
+  const { examColumn } = useColumnNames();
 
   const deleteStudentExam = (studentId) => {
     localStorage.setItem('studentSubjects', JSON.stringify(studentSubjectByID.filter((student) => student.id !== studentId)));
     toast.success('Exam has been deletd!!');
     setExams(studentSubjectByID.filter((student) => student.id !== studentId));
   };
-
-  const columns = [
-    {
-      field: 'term',
-      headerName: 'Term',
-      flex: 1,
-    },
-
-    {
-      field: 'category',
-      headerName: 'Exam Category',
-      flex: 1,
-
-    },
-    {
-      field: 'subject',
-      headerName: 'Subject',
-      flex: 1,
-
-    },
-    {
-      field: 'marks',
-      headerName: 'Marks',
-      flex: 1,
-
-    },
-    {
-      field: 'action',
-      headerName: 'Action',
-      flex: 1,
-      sortable: false,
-      renderCell: (params) => (
-        <IconButton onClick={() => deleteStudentExam(params.row.id)}>
-          <DeleteOutlineIcon />
-        </IconButton>
-      ),
-
-    },
-
-  ];
 
   const [category, setCategory] = useState('');
 
@@ -134,7 +100,6 @@ function StudentProfile() {
 
   };
 
-  const arrays = getFromStorage('studentSubjects');
   // const resultList = returnObjectTotal(arrays, 'Class 4');
   // const pstn = sortItems(resultList);
   const studentName = `${results[0].firstName} ${results[0].secondName}`;
@@ -142,15 +107,12 @@ function StudentProfile() {
   const { getStudentPosition } = usePositionApi();
   const studentPstn = getStudentPosition(studentName);
 
-  // const savedSubjects = getStudentSubjectById(id);
-  const {
-    saveStudentSubject, getStudentExamDetails,
-    studentExamDetail,
-  } = useContext(SubjectContext);
-
-  useEffect(() => {
-    getStudentSubjectById(id);
-  }, [exams]);
+  const dispatch = useDispatch();
+  const saveExams = () => {
+    dispatch(
+      addExam(inputValues),
+    );
+  };
 
   return (
     <>
@@ -440,7 +402,7 @@ function StudentProfile() {
                       marginTop: '2rem',
 
                     }}
-                    onClick={() => { saveStudentSubject(inputValues); }}
+                    onClick={() => { saveExams(); }}
                   >
                     Save
 
@@ -461,8 +423,8 @@ function StudentProfile() {
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
 
           <DataGrid
-            columns={columns}
-            rows={exams.length > 0 ? exams : studentSubjectByID}
+            columns={examColumn}
+            rows={exams}
             disableRowSelectionOnClick
             sx={{
               '.MuiDataGrid-columnHeaderTitle': {
