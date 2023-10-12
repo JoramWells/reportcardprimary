@@ -2,24 +2,25 @@
 /* eslint-disable radix */
 /* eslint-disable no-restricted-syntax */
 import { ResponsiveBar } from '@nivo/bar';
-import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { findTerm } from '../../utils/calculate';
-import { getFromStorage } from '../../utils/localStorage';
-import { selectAllSubjects } from '../../_features/subjects/subjectSlice';
+import { selectAllExams } from '../../_features/exams/examSlice';
 
 function StudentPerformanceBarChart() {
   const { id } = useParams();
 
-  const studentData = useSelector(selectAllSubjects);
+  const studentData = useSelector(selectAllExams);
 
-  const exams = studentData.filter(
-    (item) => item.studentId.toLowerCase().includes(id.toLowerCase()),
-  );
+  const findExam = (studentId) => {
+    if (studentId) {
+      return studentData.filter(
+        (item) => item.studentId.toLowerCase().includes(studentId.toLowerCase()),
+      );
+    } return [];
+  };
 
-  useEffect(() => {
-  }, [studentData]);
+  const exams = findExam(id);
 
   const data = [
     {
@@ -39,8 +40,6 @@ function StudentPerformanceBarChart() {
     },
 
   ];
-
-  const arrays = getFromStorage('studentSubjects');
 
   return (
     <ResponsiveBar

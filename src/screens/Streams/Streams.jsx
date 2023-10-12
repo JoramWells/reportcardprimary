@@ -2,15 +2,15 @@ import {
   Button, Grid, Paper,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
 
 import { DataGrid } from '@mui/x-data-grid';
-import { StreamContext } from '../../contexts/streamContext';
+import { useSelector } from 'react-redux';
 import useColumnNames from '../../constants/columnNames';
+import { selectAllStreams } from '../../_features/streams/streamSlice';
 
 function Streams() {
   const navigate = useNavigate();
-  const { streams } = useContext(StreamContext);
+  const streams = useSelector(selectAllStreams);
   const { streamColumn } = useColumnNames();
 
   return (

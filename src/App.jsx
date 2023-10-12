@@ -38,7 +38,7 @@ function App() {
         <Suspense fallback={<div>Loading...</div>}>
           <StudentRoutes />
           <Routes>
-            <Route exact path="/" element={<HomeDashboard />} />
+            {/* <Route exact path="/" element={<HomeDashboard />} /> */}
 
             <Route path="/add-student" element={<AddStudent />} />
             <Route path="/students" element={<Students />} />
@@ -47,7 +47,7 @@ function App() {
             <Route path="/subjects" element={<ViewSubjects />} />
 
             <Route path="/add-class" element={<AddClass />} />
-            <Route path="/classes" element={<Classes />} />
+            <Route path="/" element={<Classes />} />
 
             <Route path="/add-term" element={<AddTerms />} />
             <Route path="/terms" element={<Terms />} />

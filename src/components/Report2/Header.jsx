@@ -1,4 +1,3 @@
-import { Typography, Box } from '@material-ui/core';
 import { useSearchParams } from 'react-router-dom';
 import logo from '../../imgs/logo.png';
 import Underline from '../Underline';
@@ -8,7 +7,7 @@ function Header() {
 
   return (
 
-    <Box style={{
+    <div style={{
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -28,8 +27,7 @@ function Header() {
         />
       </div>
       <div>
-        <Typography
-          variant="h5"
+        <div
           style={{
             textAlign: 'center',
             fontWeight: '700',
@@ -38,24 +36,24 @@ function Header() {
         >
           TRINITY JUNIOUR SCHOOL KAMULI
 
-        </Typography>
+        </div>
         <Underline width="100%" />
-        <Typography style={{
+        <div style={{
           fontWeight: 'bold',
           fontSize: '16px',
           textAlign: 'center',
         }}
         >
           WITH GOD I CAN
-        </Typography>
-        <Typography style={{
+        </div>
+        <div style={{
           fontWeight: 'bold',
           fontSize: '16px',
           textAlign: 'center',
         }}
         >
           P.O BOX 271 KAMULI
-        </Typography>
+        </div>
         <div style={{
           textAlign: 'center',
           textTransform: 'uppercase',
@@ -82,7 +80,7 @@ function Header() {
           }}
         />
       </div>
-    </Box>
+    </div>
   );
 }
 

@@ -2,8 +2,9 @@ import { Grid, Paper } from '@mui/material';
 
 import Chart from './Chart';
 import Deposits from './Deposits';
+import ClassCharts from '../Clas/Charts/ClassCharts';
 
-import Attendance from './Attendance';
+// import Attendance from './Attendance';
 
 export default function HomeDashboard() {
   return (
@@ -17,8 +18,14 @@ export default function HomeDashboard() {
             height: 240,
           }}
         >
-          <Attendance />
+          {/* <Attendance /> */}
+          <ClassCharts />
+
         </Paper>
+      </Grid>
+
+      <Grid>
+        <Paper />
       </Grid>
       {/* Recent Deposits */}
       <Grid item xs={12} md={4} lg={3}>

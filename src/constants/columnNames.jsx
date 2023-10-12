@@ -1,18 +1,17 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable import/prefer-default-export */
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { IconButton } from '@mui/material';
-import { useContext } from 'react';
+import { Chip, IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { StreamContext } from '../contexts/streamContext';
 import { deleteStudent } from '../_features/student/studentSlice';
 import { deleteExam } from '../_features/exams/examSlice';
 import { deleteClass } from '../_features/clases/classSlice';
+import { deleteStream } from '../_features/streams/streamSlice';
 
 const useColumnNames = () => {
   // const { deleteStudent } = useContext(StudentContext);
-  const { deleteStream } = useContext(StreamContext);
 
   const dispatch = useDispatch();
   const deleteStudentRedx = (id) => {
@@ -120,7 +119,7 @@ const useColumnNames = () => {
       flex: 1,
       sortable: false,
       renderCell: (params) => (
-        <IconButton onClick={() => deleteStream(params.row.id)}>
+        <IconButton onClick={() => dispatch(deleteStream(params.row.id))}>
           <DeleteOutlineIcon />
         </IconButton>
       ),
@@ -230,16 +229,21 @@ const useColumnNames = () => {
 
     },
     {
+      field: 'streamName',
+      headerName: 'Stream Name',
+      flex: 1,
+    },
+    {
       field: 'noOfStudents',
       headerName: 'Number of Students',
       flex: 1,
-      // renderCell: (params) => (
-      //   <ul>
-      //     {params.noOfStudents.map((noOfStudents, idx) => (
-      //       <li key={idx}>{noOfStudents}</li>
-      //     ))}
-      //   </ul>
-      // ),
+      renderCell: (params) => (
+        <>
+          {params.row.noOfStudents.map((student, idx) => (
+            <Chip key={idx} label={student} />
+          ))}
+        </>
+      ),
 
     },
     {

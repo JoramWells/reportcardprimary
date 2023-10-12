@@ -4,15 +4,15 @@
 import {
   FormControl, Button, FormGroup, Paper, TextField, InputLabel, Select, MenuItem,
 } from '@mui/material';
-import { useContext, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 
 import { ToastContainer } from 'react-toastify';
-import { ClassContext } from '../../contexts/classContext';
-import { StreamContext } from '../../contexts/streamContext';
 
 import { addStudent } from '../../_features/student/studentSlice';
+import { selectAllStreams } from '../../_features/streams/streamSlice';
+import { selectAllClasses } from '../../_features/clases/classSlice';
 
 function PrimaryAdd() {
   const [firstName, setFirstName] = useState('');
@@ -26,8 +26,8 @@ function PrimaryAdd() {
   const [division, setDivision] = useState('');
   const [profile, setProfile] = useState('');
 
-  const { classes } = useContext(ClassContext);
-  const { streams } = useContext(StreamContext);
+  const classes = useSelector(selectAllClasses);
+  const streams = useSelector(selectAllStreams);
 
   const getStreamName = (name) => {
     const results = streams.filter(

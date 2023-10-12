@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { getFromStorage } from '../../utils/localStorage';
 
-const initialState = getFromStorage('studentSubjects');
+const initialState = getFromStorage('subjects');
 
 const subjectSlice = createSlice({
   name: 'subjects',
@@ -13,7 +13,7 @@ const subjectSlice = createSlice({
         state.push(action.payload);
         const newSubject = [...initialState, action.payload];
 
-        localStorage.setItem('studentData', JSON.stringify(newSubject));
+        localStorage.setItem('subjects', JSON.stringify(newSubject));
         toast.success('Added New Student!!');
       },
       prepare(inputValues) {

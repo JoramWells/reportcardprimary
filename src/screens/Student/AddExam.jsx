@@ -30,6 +30,7 @@ const style = {
 
 const AddExam = ({ open, handleClose }) => {
   const subjects = useSelector(selectAllSubjects);
+  console.log(subjects, 'all subjects');
   const [subject, setSubject] = useState('');
   const [marks, setMarks] = useState('');
   const [term, setTerm] = useState('');

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-concat */
 import {
   Box, Button, Grid, IconButton, Paper, Typography,
@@ -24,9 +25,8 @@ function StudentProfile() {
   const { id } = useParams();
   const exam2 = useSelector(selectAllExams);
 
-  const exams = exam2.filter(
-    (item) => item.studentId.toLowerCase().includes(id.toLowerCase()),
-  );
+  const exams = exam2.filter((item) => item.studentId.toLowerCase()
+    .includes(id.toLowerCase()));
 
   const { examColumn } = useColumnNames();
 

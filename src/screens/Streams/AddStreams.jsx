@@ -2,14 +2,15 @@
 import {
   FormControl, Button, FormGroup, Paper, TextField, InputLabel, Select, MenuItem,
 } from '@mui/material';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import SaveIcon from '@mui/icons-material/Save';
 import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
 import { getFromStorage } from '../../utils/localStorage';
-import { ClassContext } from '../../contexts/classContext';
 import FormHeader from '../../components/FormHeader';
-import { StreamContext } from '../../contexts/streamContext';
 import { getInitials } from '../../utils/utilityFunctions';
+import { addStream } from '../../_features/streams/streamSlice';
+import { selectAllClasses } from '../../_features/clases/classSlice';
 
 const teachers = getFromStorage('Teachers');
 
@@ -18,8 +19,6 @@ function AddStreams() {
   const [streamName, setstreamName] = useState('');
   const [classTeacher, setClassTeacher] = useState('');
   const [noOfStudents, setNoOfStudents] = useState('');
-
-  const { saveStreams } = useContext(StreamContext);
 
   const inputValues = {
     id: nanoid(),
@@ -30,15 +29,8 @@ function AddStreams() {
 
   };
 
-  const handleChange = (e) => {
-    setClassName(e.target.value);
-  };
-
-  const handleTeacherChange = (e) => {
-    setClassTeacher(e.target.value);
-  };
-
-  const { classes } = useContext(ClassContext);
+  const dispatch = useDispatch();
+  const classes = useSelector(selectAllClasses);
 
   return (
     <div
@@ -92,7 +84,7 @@ function AddStreams() {
                 value={className}
                 label="Term"
                 size="small"
-                onChange={handleChange}
+                onChange={(e) => setClassName(e.target.value)}
               >
                 {classes.map((item) => (
                   <MenuItem
@@ -138,7 +130,7 @@ function AddStreams() {
                 value={classTeacher}
                 label="Term"
                 size="small"
-                onChange={handleTeacherChange}
+                onChange={(e) => setClassTeacher(e.target.value)}
               >
                 {teachers.map((item) => (
                   <MenuItem key={item.id} value={getInitials(`${item.firstName}  ${item.secondName}`)}>{`${item.firstName} ${item.secondName}`}</MenuItem>
@@ -175,7 +167,7 @@ function AddStreams() {
                 marginTop: '2.5rem',
                 // backgroundColor: '#291749',
               }}
-              onClick={() => saveStreams(inputValues)}
+              onClick={() => dispatch(addStream(inputValues))}
               endIcon={<SaveIcon />}
             >
               SAVE

@@ -85,3 +85,23 @@ export const findStudentPstn = (arr, target) => {
   }
   return -1;
 };
+
+export const getClassStreams = (arr) => {
+  const map = new Map(arr.map((
+    { className, streamName, classTeacher },
+  ) => [className, {
+    id: nanoid(),
+    className,
+    streamName: [],
+    classTeacher: [],
+    noOfStudents: [],
+  }]));
+  for (const {
+    className, streamName, classTeacher, noOfStudents,
+  } of arr) {
+    map.get(className).streamName.push(...[streamName].flat());
+    map.get(className).classTeacher.push(...[classTeacher].flat());
+    map.get(className).noOfStudents.push(...[noOfStudents].flat());
+  }
+  return [...map.values()];
+};

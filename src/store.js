@@ -4,6 +4,7 @@ import studentReducer from './_features/student/studentSlice';
 import examReducer from './_features/exams/examSlice';
 import subjectReducer from './_features/subjects/subjectSlice';
 import classReducer from './_features/clases/classSlice';
+import streamReducer from './_features/streams/streamSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     exams: examReducer,
     subjects: subjectReducer,
     classes: classReducer,
+    streams: streamReducer,
 
   },
 });

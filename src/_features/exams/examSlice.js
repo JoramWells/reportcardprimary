@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { getFromStorage } from '../../utils/localStorage';
 
-const initialState = getFromStorage('studentSubjects');
+const initialState = getFromStorage('studentExams');
 
 const examSlice = createSlice({
   name: 'exams',
@@ -13,7 +13,7 @@ const examSlice = createSlice({
         state.push(action.payload);
         const newExam = [...initialState, action.payload];
 
-        localStorage.setItem('studentSubjects', JSON.stringify(newExam));
+        localStorage.setItem('studentExams', JSON.stringify(newExam));
         toast.success('Added New Exam!!');
       },
       prepare(inputValues) {
@@ -24,7 +24,7 @@ const examSlice = createSlice({
     },
     deleteExam: (state, { payload: index }) => {
       state.splice(index, 1);
-      localStorage.setItem('studentSubjects', JSON.stringify(initialState.filter((student) => student.id !== index)));
+      localStorage.setItem('studentExams', JSON.stringify(initialState.filter((student) => student.id !== index)));
       toast.success('Succesfully deleted!!');
     },
   },

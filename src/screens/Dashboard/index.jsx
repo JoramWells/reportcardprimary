@@ -100,7 +100,7 @@ export default function Dashboard({ children }) {
   // main list
   const mainListItems = (
     <>
-      <ListItemButton selected={pathname === '/'}>
+      {/* <ListItemButton selected={pathname === '/'}>
         <ListItemIcon>
           <DashboardIcon sx={{ color: pathname === '/' && '#349EFF' }} />
         </ListItemIcon>
@@ -109,16 +109,16 @@ export default function Dashboard({ children }) {
             <span style={{
               color: pathname === '/' && '#349EFF',
             }}
-            >
-              Dashboard
+            >s
+              Classes
             </span>
 )}
           onClick={() => navigate('/')}
         />
-      </ListItemButton>
+      </ListItemButton> */}
 
       {/* class */}
-      <ListItemButton selected={pathname === '/classes' || pathname === '/add-class'} onClick={() => navigate('/classes')}>
+      <ListItemButton selected={pathname === '/' || pathname === '/add-class'} onClick={() => navigate('/')}>
         <ListItemIcon>
           <BoyIcon />
         </ListItemIcon>
