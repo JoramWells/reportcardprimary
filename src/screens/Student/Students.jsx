@@ -3,14 +3,16 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
-import { useContext } from 'react';
+// import { useContext } from 'react';
 
-import { StudentContext } from '../../contexts/studentContext';
+import { useSelector } from 'react-redux';
+// import { StudentContext } from '../../contexts/studentContext';
 import useColumnNames from '../../constants/columnNames';
 
 function Students() {
   const navigate = useNavigate();
-  const { students } = useContext(StudentContext);
+  const student2 = useSelector((state) => state.students);
+  // const { students } = useContext(StudentContext);
 
   const { studentColumn } = useColumnNames();
 
@@ -37,7 +39,7 @@ function Students() {
       <Grid item xs={12}>
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
           <DataGrid
-            rows={students}
+            rows={student2}
             columns={studentColumn}
             disableRowSelectionOnClick
             sx={{

@@ -4,11 +4,15 @@
 import {
   FormControl, Button, FormGroup, Paper, TextField, InputLabel, Select, MenuItem,
 } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react';
-import { nanoid } from 'nanoid';
-import { StudentContext } from '../../contexts/studentContext';
+import React, { useContext, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit';
+
+import { ToastContainer } from 'react-toastify';
 import { ClassContext } from '../../contexts/classContext';
 import { StreamContext } from '../../contexts/streamContext';
+
+import { addStudent } from '../../_features/student/studentSlice';
 
 function PrimaryAdd() {
   const [firstName, setFirstName] = useState('');
@@ -32,8 +36,6 @@ function PrimaryAdd() {
     return results;
   };
 
-  const { saveStudents } = useContext(StudentContext);
-
   const inputValues = {
     id: nanoid(),
     firstName: firstName,
@@ -46,6 +48,14 @@ function PrimaryAdd() {
     division,
     type: 'Primary',
     profile,
+  };
+
+  const dispatch = useDispatch();
+
+  const saveStudentRedux = () => {
+    dispatch(
+      addStudent(inputValues),
+    );
   };
 
   const handleChange = (e) => {
@@ -244,7 +254,7 @@ function PrimaryAdd() {
                 padding: '5px',
                 marginTop: '1.5rem',
               }}
-              onClick={() => saveStudents(inputValues)}
+              onClick={() => saveStudentRedux()}
             >
               SAVE STUDENT
             </Button>
@@ -255,6 +265,7 @@ function PrimaryAdd() {
 
         </Paper>
       </div>
+      <ToastContainer />
     </div>
   );
 }
