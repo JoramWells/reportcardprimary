@@ -30,7 +30,7 @@ const examSlice = createSlice({
   },
 });
 
-export const selectAllExams = (state) => state.exam;
+export const selectAllExams = (state) => state.exams;
 
 export const { addExam, deleteExam } = examSlice.actions;
 

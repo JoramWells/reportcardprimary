@@ -7,7 +7,7 @@ import { getFromStorage } from '../../utils/localStorage';
 const initialState = getFromStorage('studentData');
 
 const studentSlice = createSlice({
-  name: 'student',
+  name: 'students',
   initialState,
   reducers: {
     addStudent: {
@@ -33,7 +33,7 @@ const studentSlice = createSlice({
   },
 });
 
-export const selectAllStudents = (state) => state.student;
+export const selectAllStudents = (state) => state.students;
 
 export const { addStudent, deleteStudent } = studentSlice.actions;
 

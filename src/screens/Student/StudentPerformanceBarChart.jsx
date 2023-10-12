@@ -4,44 +4,43 @@
 import { ResponsiveBar } from '@nivo/bar';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { nanoid } from 'nanoid';
-import { useSubjectApi } from '../../hooks/useSubjectApi';
+import { useSelector } from 'react-redux';
 import { findTerm } from '../../utils/calculate';
 import { getFromStorage } from '../../utils/localStorage';
-import { returnObjectTotal, sortItems } from '../../utils/utilityFunctions';
+import { selectAllSubjects } from '../../_features/subjects/subjectSlice';
 
 function StudentPerformanceBarChart() {
   const { id } = useParams();
 
-  const { studentSubjectByID, getStudentSubjectById } = useSubjectApi();
+  const studentData = useSelector(selectAllSubjects);
+
+  const exams = studentData.filter(
+    (item) => item.studentId.toLowerCase().includes(id.toLowerCase()),
+  );
 
   useEffect(() => {
-    getStudentSubjectById(id);
-  }, []);
+  }, [studentData]);
 
   const data = [
     {
       day: 'BOT',
-      averageTerm: findTerm(studentSubjectByID, 'BOT'),
+      averageTerm: findTerm(exams, 'BOT'),
       color: 'hsl(56, 70%, 50%)',
     },
     {
       day: 'MID',
-      averageTerm: findTerm(studentSubjectByID, 'MID'),
+      averageTerm: findTerm(exams, 'MID'),
       color: 'hsl(56, 70%, 50%)',
     },
     {
       day: 'EOT',
-      averageTerm: findTerm(studentSubjectByID, 'EOT'),
+      averageTerm: findTerm(exams, 'EOT'),
       color: 'hsl(56, 70%, 50%)',
     },
 
   ];
 
   const arrays = getFromStorage('studentSubjects');
-
-  const resultList = returnObjectTotal(arrays, 'Class 4');
-  console.log(resultList, 'average');
 
   return (
     <ResponsiveBar

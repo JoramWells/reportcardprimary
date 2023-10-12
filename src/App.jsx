@@ -5,6 +5,7 @@ import { Suspense, lazy } from 'react';
 import ClassContextProvider from './contexts/classContext';
 import ViewSubjects from './screens/Subjects/ViewSubjects';
 import StreamContextProvider from './contexts/streamContext';
+import Dashboard from './screens/Dashboard';
 
 // const dynamic import
 const StudentRoutes = lazy(() => import('./StudentRoutes'));
@@ -23,7 +24,6 @@ const AddSubject = lazy(() => import('./screens/Subjects/AddSubject'));
 const AddStreams = lazy(() => import('./screens/Streams/AddStreams'));
 const AddClass = lazy(() => import('./screens/Clas/AddClass'));
 const Classes = lazy(() => import('./screens/Clas/Classes'));
-const Dashboard = lazy(() => import('./screens/Dashboard'));
 const AddTerms = lazy(() => import('./screens/Terms/AddTerm'));
 const Terms = lazy(() => import('./screens/Terms/Terms'));
 
@@ -31,12 +31,13 @@ function App() {
   return (
     <ClassContextProvider>
       <StreamContextProvider>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Routes>
-          <Dashboard>
+
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+        <Dashboard>
+          <Suspense fallback={<div>Loading...</div>}>
             <StudentRoutes />
             <Routes>
               <Route exact path="/" element={<HomeDashboard />} />
@@ -61,8 +62,9 @@ function App() {
               <Route path="/teacher" element={<Teacher />} />
 
             </Routes>
-          </Dashboard>
-        </Suspense>
+          </Suspense>
+
+        </Dashboard>
       </StreamContextProvider>
     </ClassContextProvider>
 
