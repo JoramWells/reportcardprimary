@@ -1,22 +1,28 @@
 import {
   FormControl, Button, FormGroup, Paper, TextField,
 } from '@mui/material';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import SaveIcon from '@mui/icons-material/Save';
 
 import { nanoid } from 'nanoid';
-import { ClassContext } from '../../contexts/classContext';
+import { useDispatch } from 'react-redux';
+import { addClass } from '../../_features/clases/classSlice';
 
 function AddClass() {
   const [className, setClassName] = useState('');
+
+  const dispatch = useDispatch();
 
   const inputValues = {
     id: nanoid(),
     className,
 
   };
-
-  const { saveClasses } = useContext(ClassContext);
+  const saveClass = () => {
+    dispatch(
+      addClass(inputValues),
+    );
+  };
 
   return (
     <div
@@ -78,7 +84,7 @@ function AddClass() {
               marginTop: '2.5rem',
               // backgroundColor: '#291749',
             }}
-            onClick={() => saveClasses(inputValues)}
+            onClick={() => saveClass()}
             endIcon={<SaveIcon />}
           >
             SAVE

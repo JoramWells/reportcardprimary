@@ -4,9 +4,9 @@
 import {
   FormControl, Button, FormGroup, Paper, TextField, InputLabel, Select, MenuItem,
 } from '@mui/material';
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
+import { nanoid } from 'nanoid';
 
 import { ToastContainer } from 'react-toastify';
 import { ClassContext } from '../../contexts/classContext';
@@ -80,10 +80,7 @@ function PrimaryAdd() {
   };
 
   return (
-    <div style={{
-      width: '100%',
-    }}
-    >
+    <>
       <div style={{
         display: 'flex',
         justifyContent: 'center',
@@ -266,7 +263,7 @@ function PrimaryAdd() {
         </Paper>
       </div>
       <ToastContainer />
-    </div>
+    </>
   );
 }
 

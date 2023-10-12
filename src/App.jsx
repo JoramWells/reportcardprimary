@@ -2,7 +2,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 
-import ClassContextProvider from './contexts/classContext';
 import ViewSubjects from './screens/Subjects/ViewSubjects';
 import StreamContextProvider from './contexts/streamContext';
 import Dashboard from './screens/Dashboard';
@@ -29,44 +28,42 @@ const Terms = lazy(() => import('./screens/Terms/Terms'));
 
 function App() {
   return (
-    <ClassContextProvider>
-      <StreamContextProvider>
+    <StreamContextProvider>
 
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-        <Dashboard>
-          <Suspense fallback={<div>Loading...</div>}>
-            <StudentRoutes />
-            <Routes>
-              <Route exact path="/" element={<HomeDashboard />} />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+      <Dashboard>
+        <Suspense fallback={<div>Loading...</div>}>
+          <StudentRoutes />
+          <Routes>
+            <Route exact path="/" element={<HomeDashboard />} />
 
-              <Route path="/add-student" element={<AddStudent />} />
-              <Route path="/students" element={<Students />} />
+            <Route path="/add-student" element={<AddStudent />} />
+            <Route path="/students" element={<Students />} />
 
-              <Route path="/add-subject" element={<AddSubject />} />
-              <Route path="/subjects" element={<ViewSubjects />} />
+            <Route path="/add-subject" element={<AddSubject />} />
+            <Route path="/subjects" element={<ViewSubjects />} />
 
-              <Route path="/add-class" element={<AddClass />} />
-              <Route path="/classes" element={<Classes />} />
+            <Route path="/add-class" element={<AddClass />} />
+            <Route path="/classes" element={<Classes />} />
 
-              <Route path="/add-term" element={<AddTerms />} />
-              <Route path="/terms" element={<Terms />} />
+            <Route path="/add-term" element={<AddTerms />} />
+            <Route path="/terms" element={<Terms />} />
 
-              <Route path="/streams" element={<Streams />} />
-              <Route path="/add-stream" element={<AddStreams />} />
+            <Route path="/streams" element={<Streams />} />
+            <Route path="/add-stream" element={<AddStreams />} />
 
-              <Route path="/add-system" element={<AddSystem />} />
-              <Route path="/add-teacher" element={<AddTeacher />} />
-              <Route path="/teacher" element={<Teacher />} />
+            <Route path="/add-system" element={<AddSystem />} />
+            <Route path="/add-teacher" element={<AddTeacher />} />
+            <Route path="/teacher" element={<Teacher />} />
 
-            </Routes>
-          </Suspense>
+          </Routes>
+        </Suspense>
 
-        </Dashboard>
-      </StreamContextProvider>
-    </ClassContextProvider>
+      </Dashboard>
+    </StreamContextProvider>
 
   );
 }

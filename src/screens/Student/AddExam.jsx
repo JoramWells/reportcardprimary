@@ -7,13 +7,13 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { getSubjects } from '../../utils/subjectFuncs';
 import { addExam } from '../../_features/exams/examSlice';
-import { useStudentApi } from '../../hooks/useStudentApi';
 import { getFromStorage } from '../../utils/localStorage';
+import { selectAllStudents } from '../../_features/student/studentSlice';
+import { selectAllSubjects } from '../../_features/subjects/subjectSlice';
 
 const style = {
   position: 'absolute',
@@ -29,7 +29,7 @@ const style = {
 };
 
 const AddExam = ({ open, handleClose }) => {
-  const [subjects] = useState(getSubjects());
+  const subjects = useSelector(selectAllSubjects);
   const [subject, setSubject] = useState('');
   const [marks, setMarks] = useState('');
   const [term, setTerm] = useState('');
@@ -38,28 +38,18 @@ const AddExam = ({ open, handleClose }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const { results } = useStudentApi();
-
-  //   funcs
-  const handleChange = (e) => {
-    setSubject(e.target.value);
-  };
-
-  const handleTermChange = (e) => {
-    setTerm(e.target.value);
-  };
-
-  const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
-  };
+  const students = useSelector(selectAllStudents);
+  const student = students.filter(
+    (user) => user.id.toLowerCase().includes(id.toLowerCase()),
+  );
 
   const inputValues = {
     id: nanoid(),
     studentId: id,
-    studentName: `${`${results[0].firstName} ${results[0].secondName}`}`,
+    studentName: `${`${student[0].firstName} ${student[0].secondName}`}`,
     term,
     category,
-    className: results[0].className,
+    className: student[0].className,
     subject,
     marks,
     ['marks-' + `${term}`]: marks,
@@ -91,7 +81,7 @@ const AddExam = ({ open, handleClose }) => {
           }}
         >
           {/* subject */}
-          {results[0].type === 'ECD'
+          {student[0].type === 'ECD'
             ? (
               <FormControl
                 style={{
@@ -105,7 +95,7 @@ const AddExam = ({ open, handleClose }) => {
                   value={term}
                   label="Term"
                   size="small"
-                  onChange={handleTermChange}
+                  onChange={(e) => setTerm(e.target.value)}
                 >
                   <MenuItem value="Monthly">Monthly</MenuItem>
                   <MenuItem value="EOT">EOT</MenuItem>
@@ -126,7 +116,7 @@ const AddExam = ({ open, handleClose }) => {
                   value={term}
                   label="Term"
                   size="small"
-                  onChange={handleTermChange}
+                  onChange={(e) => setTerm(e.target.value)}
                 >
                   {getFromStorage('Terms').map((item) => (
                     <MenuItem key={item.id} value={item.termName}>{item.termName}</MenuItem>
@@ -149,7 +139,7 @@ const AddExam = ({ open, handleClose }) => {
               value={category}
               label="Term"
               size="small"
-              onChange={handleCategoryChange}
+              onChange={(e) => setCategory(e.target.value)}
             >
               <MenuItem value="BOT">BOT</MenuItem>
               <MenuItem value="MID">MID</MenuItem>
@@ -170,7 +160,7 @@ const AddExam = ({ open, handleClose }) => {
               value={subject}
               label="Term"
               size="small"
-              onChange={handleChange}
+              onChange={(e) => setSubject(e.target.value)}
             >
               {subjects.map((item) => (
                 <MenuItem key={item.id} value={item.subject}>{item.subject}</MenuItem>

@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { StreamContext } from '../contexts/streamContext';
 import { deleteStudent } from '../_features/student/studentSlice';
 import { deleteExam } from '../_features/exams/examSlice';
+import { deleteClass } from '../_features/clases/classSlice';
 
 const useColumnNames = () => {
   // const { deleteStudent } = useContext(StudentContext);
@@ -22,6 +23,10 @@ const useColumnNames = () => {
 
   const deleteStudentExam = (id) => {
     dispatch(deleteExam(id));
+  };
+
+  const removeClass = (id) => {
+    dispatch(deleteClass(id));
   };
 
   // student column
@@ -164,7 +169,112 @@ const useColumnNames = () => {
 
   ];
 
-  return { studentColumn, streamColumn, examColumn };
+  const classColumns = [
+    {
+      field: 'className',
+      headerName: 'Class Name',
+      flex: 1,
+    },
+    {
+      field: 'classTeacher',
+      headerName: 'Class Teacher',
+      flex: 1,
+
+    },
+    {
+      field: 'noOfStudents',
+      headerName: 'Number of Students',
+      flex: 1,
+
+    },
+    {
+      field: 'registeredStudents',
+      headerName: 'Registered Students',
+      flex: 1,
+
+    },
+    {
+      field: 'action',
+      headerName: 'Action',
+      flex: 1,
+      sortable: false,
+      renderCell: (params) => (
+        <IconButton onClick={() => {
+          removeClass(params.row.id);
+        }}
+        >
+          <DeleteOutlineIcon />
+        </IconButton>
+      ),
+
+    },
+  ];
+
+  const universalColumn = [
+    {
+      field: 'className',
+      headerName: 'Class Name',
+      flex: 1,
+    },
+    {
+      field: 'classTeacher',
+      headerName: 'Class Teacher',
+      flex: 1,
+      // renderCell: (params) => (
+      //   <ul>
+      //     {params.classTeacher.map((classTeacher, idx) => (
+      //       <li key={idx}>{classTeacher}</li>
+      //     ))}
+      //   </ul>
+      // ),
+
+    },
+    {
+      field: 'noOfStudents',
+      headerName: 'Number of Students',
+      flex: 1,
+      // renderCell: (params) => (
+      //   <ul>
+      //     {params.noOfStudents.map((noOfStudents, idx) => (
+      //       <li key={idx}>{noOfStudents}</li>
+      //     ))}
+      //   </ul>
+      // ),
+
+    },
+    {
+      field: 'registeredStudents',
+      headerName: 'Registered Students',
+      flex: 1,
+      // renderCell: (params) => (
+      //   <ul>
+      //     {params.registeredStudents.map((registeredStudents, idx) => (
+      //       <li key={idx}>{registeredStudents}</li>
+      //     ))}
+      //   </ul>
+      // ),
+
+    },
+    {
+      field: 'action',
+      headerName: 'Action',
+      flex: 1,
+      sortable: false,
+      renderCell: (params) => (
+        <IconButton onClick={() => {
+          removeClass(params.row.id);
+        }}
+        >
+          <DeleteOutlineIcon />
+        </IconButton>
+      ),
+
+    },
+  ];
+
+  return {
+    studentColumn, streamColumn, examColumn, classColumns, universalColumn,
+  };
 };
 
 export default useColumnNames;
