@@ -2,6 +2,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 
+import { CircularProgress } from '@mui/material';
 import ViewSubjects from './screens/Subjects/ViewSubjects';
 import StreamContextProvider from './contexts/streamContext';
 import Dashboard from './screens/Dashboard';
@@ -35,10 +36,22 @@ function App() {
         <Route path="/register" element={<Register />} />
       </Routes>
       <Dashboard>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={(
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh',
+            width: '100%',
+          }}
+          >
+            <CircularProgress color="primary" />
+          </div>
+)}
+        >
           <StudentRoutes />
           <Routes>
-            {/* <Route exact path="/" element={<HomeDashboard />} /> */}
+            <Route exact path="/" element={<HomeDashboard />} />
 
             <Route path="/add-student" element={<AddStudent />} />
             <Route path="/students" element={<Students />} />
@@ -47,7 +60,7 @@ function App() {
             <Route path="/subjects" element={<ViewSubjects />} />
 
             <Route path="/add-class" element={<AddClass />} />
-            <Route path="/" element={<Classes />} />
+            <Route path="/classes" element={<Classes />} />
 
             <Route path="/add-term" element={<AddTerms />} />
             <Route path="/terms" element={<Terms />} />

@@ -28,38 +28,26 @@ function ClassCharts() {
       streamName: [],
       classTeacher: [],
       noOfStudents: [],
+      totalNumberOfStudents: 0,
     }]));
     for (const {
-      className, streamName, classTeacher, noOfStudents,
+      className, streamName, classTeacher, noOfStudents, totalNumberOfStudents,
     } of streams) {
       map.get(className).streamName.push(...[streamName].flat());
       map.get(className).classTeacher.push(...[classTeacher].flat());
       map.get(className).noOfStudents.push(...[noOfStudents].flat());
+      map.get(className).totalNumberOfStudents += parseInt(noOfStudents);
     }
     return [...map.values()];
   };
 
-  const calculateSum = (arr) => arr
-    .reduce((sum, person) => sum += parseInt(person), 0);
-
-  const calculateTotalNoOfStudents = (arr, className) => arr.filter(
-    (user) => user.className.toLowerCase().includes(className.toLowerCase()),
-  );
-
   // get all streams
   const allStreams = getClassStreams();
 
-  const classThreeStudents = calculateTotalNoOfStudents(allStreams, 'Class Three').map((item) => {
-    const sum = calculateSum(item.noOfStudents);
-    return { className: item.className, noOfStudents: sum };
-  });
-
-  const classFourStudents = calculateTotalNoOfStudents(allStreams, 'Class 4').map((item) => {
-    const sum = calculateSum(item.noOfStudents);
-    return { className: item.className, noOfStudents: sum };
-  });
-
-  console.log(getClassStreams(), 'steamx');
+  const data = allStreams.map((person) => ({
+    className: person.className,
+    noOfStudents: person.totalNumberOfStudents,
+  }));
 
   const findExam = (studentId) => {
     if (studentId) {
@@ -69,41 +57,9 @@ function ClassCharts() {
     } return [];
   };
 
-  const infoArr = [
-    classThreeStudents[0],
-    classFourStudents[0],
-  ];
-
-  const getClassNames = (arr) => {
-    arr.map((item) => (item));
-  };
-
-  console.log(getClassNames(classes), 'SERT');
-
-  const exams = findExam(id);
-
-  const data = [
-    {
-      day: 'Class 3',
-      averageTerm: classThreeStudents[0].noOfStudents,
-      color: 'hsl(56, 70%, 50%)',
-    },
-    {
-      day: 'MID',
-      averageTerm: classFourStudents[0].noOfStudents,
-      color: 'hsl(56, 70%, 50%)',
-    },
-    {
-      day: 'EOT',
-      averageTerm: findTerm(exams, 'EOT'),
-      color: 'hsl(56, 70%, 50%)',
-    },
-
-  ];
-
   return (
     <ResponsiveBar
-      data={infoArr}
+      data={data}
       keys={['noOfStudents']}
       indexBy="className"
       margin={{
@@ -120,7 +76,7 @@ function ClassCharts() {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'Average Marks',
+        legend: 'Number of Students',
         legendPosition: 'middle',
         legendOffset: -40,
       }}

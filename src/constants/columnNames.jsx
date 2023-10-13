@@ -232,6 +232,13 @@ const useColumnNames = () => {
       field: 'streamName',
       headerName: 'Stream Name',
       flex: 1,
+      renderCell: (params) => (
+        <>
+          {params.row.streamName.map((student, idx) => (
+            <Chip color="primary" variant="outlined" key={idx} label={student} />
+          ))}
+        </>
+      ),
     },
     {
       field: 'noOfStudents',

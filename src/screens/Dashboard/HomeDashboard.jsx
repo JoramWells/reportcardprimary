@@ -1,4 +1,4 @@
-import { Grid, Paper } from '@mui/material';
+import { Grid, Paper, Typography } from '@mui/material';
 
 import Chart from './Chart';
 import Deposits from './Deposits';
@@ -15,9 +15,12 @@ export default function HomeDashboard() {
             p: 2,
             display: 'flex',
             flexDirection: 'column',
-            height: 240,
+            height: 340,
           }}
         >
+          <Typography variant="h5">
+            Registered Students
+          </Typography>
           {/* <Attendance /> */}
           <ClassCharts />
 

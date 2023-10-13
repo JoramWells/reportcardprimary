@@ -2,10 +2,11 @@
 import {
   FormControl, Button, FormGroup, Paper, TextField, InputLabel, Select, MenuItem,
 } from '@mui/material';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import SaveIcon from '@mui/icons-material/Save';
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getFromStorage } from '../../utils/localStorage';
 import FormHeader from '../../components/FormHeader';
 import { getInitials } from '../../utils/utilityFunctions';
@@ -44,140 +45,181 @@ function AddStreams() {
     >
 
       <Paper
-        style={{
-          width: '50%',
-          padding: '10px',
-          position: 'relative',
-        }}
         sx={{
-          pt: 10,
-          pb: 10,
+          width: '50%',
+          position: 'relative',
+          height: '95%',
+          borderRadius: '15px',
         }}
-        elevation={0}
+        elevation={3}
       >
 
-        <FormHeader navigationLink="/streams" title="Add Streams" />
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'relative',
-          }}
-        >
-          <FormGroup style={{
-            width: '80%',
-          }}
+        <>
+          <FormHeader navigationLink="/streams" title="Add Streams" />
+          <FormGroup
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'relative',
+              padding: '10px',
+            }}
           >
+            <>
 
-            {/* name of class */}
-            {/* classname */}
-            <FormControl
-              style={{
-                margin: '1rem',
-              }}
-            >
-              <InputLabel id="demo-simple-select-label">Class name</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={className}
-                label="Term"
-                size="small"
-                onChange={(e) => setClassName(e.target.value)}
+              {/* name of class */}
+              {/* classname */}
+              <FormControl
+                style={{
+                  margin: '1rem',
+                  width: '80%',
+                }}
               >
-                {classes.map((item) => (
-                  <MenuItem
-                    key={item.id}
-                    value={item.className}
+                <InputLabel id="demo-simple-select-label">Class name</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={className}
+                  label="Term"
+                  size="small"
+                  onChange={(e) => setClassName(e.target.value)}
+                  style={{
+                    padding: '0',
+                  }}
+                >
+                  {classes.map((item) => (
+                    <MenuItem
+                      key={item.id}
+                      value={item.className}
+                    >
+                      {item.className}
+
+                    </MenuItem>
+                  ))}
+                  <MenuItem style={{
+                    backgroundColor: 'whitesmoke',
+                    textAlign: 'center',
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
                   >
-                    {item.className}
+                    <Link
+                      to="/add-class"
+                      style={{
+                        textDecoration: 'none',
+                      }}
+                    >
+                      Add Class
+                    </Link>
 
                   </MenuItem>
-                ))}
 
-              </Select>
-            </FormControl>
+                </Select>
+              </FormControl>
 
-            {/* Number of Students  */}
-            <FormControl
-              style={{
-                margin: '1rem',
-              }}
-            >
-              <TextField
-                id="outlined-basic"
-                label="Stream Name"
-                variant="outlined"
-                size="small"
+              {/* Number of Students  */}
+              <FormControl
                 style={{
-                  width: '100%',
+                  margin: '1rem',
+                  width: '80%',
                 }}
-                onChange={(e) => setstreamName(e.target.value)}
-              />
-            </FormControl>
-
-            {/* Name of class teacher */}
-            <FormControl
-              style={{
-                margin: '1rem',
-              }}
-            >
-              <InputLabel id="demo-simple-select-label">Select Teacher</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={classTeacher}
-                label="Term"
-                size="small"
-                onChange={(e) => setClassTeacher(e.target.value)}
               >
-                {teachers.map((item) => (
-                  <MenuItem key={item.id} value={getInitials(`${item.firstName}  ${item.secondName}`)}>{`${item.firstName} ${item.secondName}`}</MenuItem>
-                ))}
+                <TextField
+                  id="outlined-basic"
+                  label="Stream Name"
+                  placeholder="Enter Stream Name"
+                  variant="outlined"
+                  size="small"
+                  style={{
+                    width: '100%',
+                  }}
+                  onChange={(e) => setstreamName(e.target.value)}
+                />
+              </FormControl>
 
-              </Select>
-            </FormControl>
+              {/* Name of class teacher */}
+              <FormControl
+                style={{
+                  margin: '1rem',
+                  width: '80%',
+                }}
+              >
+                <InputLabel id="demo-simple-select-label">Select Teacher</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={classTeacher}
+                  label="Term"
+                  size="small"
+                  onChange={(e) => setClassTeacher(e.target.value)}
+                >
+                  {teachers.map((item) => (
+                    <MenuItem key={item.id} value={getInitials(`${item.firstName}  ${item.secondName}`)}>{`${item.firstName} ${item.secondName}`}</MenuItem>
+                  ))}
 
-            <FormControl
-              style={{
-                margin: '1rem',
-              }}
-            >
-              <TextField
-                id="outlined-basic"
-                label="Number of students"
-                variant="outlined"
+                  <MenuItem style={{
+                    backgroundColor: 'whitesmoke',
+                    textAlign: 'center',
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
+                  >
+                    <Link
+                      to="/add-teacher"
+                      style={{
+                        textDecoration: 'none',
+                      }}
+                    >
+                      Add Teacher
+                    </Link>
+
+                  </MenuItem>
+
+                </Select>
+              </FormControl>
+
+              <FormControl
+                style={{
+                  margin: '1rem',
+                  width: '80%',
+                }}
+              >
+                <TextField
+                  id="outlined-basic"
+                  label="Number of students"
+                  variant="outlined"
+                  size="small"
+                  style={{
+                    width: '100%',
+                  }}
+                  onChange={(e) => setNoOfStudents(e.target.value)}
+                />
+              </FormControl>
+
+              <Button
+                variant="contained"
+                disableElevation
                 size="small"
                 style={{
-                  width: '100%',
+                  width: '80%',
+                  margin: 'auto',
+                  // display: 'block',
+                  padding: '8px',
+                  marginTop: '1rem',
+                  // backgroundColor: '#291749',
                 }}
-                onChange={(e) => setNoOfStudents(e.target.value)}
-              />
-            </FormControl>
+                onClick={() => dispatch(addStream(inputValues))}
+                endIcon={<SaveIcon />}
+              >
+                SAVE
+              </Button>
 
-            <Button
-              variant="contained"
-              disableElevation
-              style={{
-                width: '94%',
-                margin: 'auto',
-                // display: 'block',
-                padding: '10px',
-                marginTop: '2.5rem',
-                // backgroundColor: '#291749',
-              }}
-              onClick={() => dispatch(addStream(inputValues))}
-              endIcon={<SaveIcon />}
-            >
-              SAVE
-            </Button>
+              {/* have an account */}
 
-            {/* have an account */}
+            </>
 
           </FormGroup>
-
-        </div>
+        </>
       </Paper>
 
     </div>
